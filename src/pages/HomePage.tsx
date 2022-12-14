@@ -1,16 +1,17 @@
 import * as React from "react";
 import  { useState, useEffect } from 'react'
 import { useAppSelector, useAppDispatch } from '../hooks'
-import {ticketsFetched} from '../store/ticket/slice'
+import {selectTickets} from '../store/ticket/slectors'
+import {fetchTickets} from '../store/ticket/thunks'
 
 const  HomePage: React.FC  <{}> = () =>{
 
-    const ticket = useAppSelector(state => state.tickets)
-    console.log(ticket, 'soy lindo')
+    const tickets = useAppSelector(selectTickets)
+   
     const dispatch = useAppDispatch()
 
     useEffect(()=>{
-        dispatch(ticketsFetched())
+        dispatch(fetchTickets())
     },[])
 
     
@@ -18,7 +19,7 @@ const  HomePage: React.FC  <{}> = () =>{
     
         return (
             <div>
-                <h1>Home Page {ticket.subject}</h1>
+                <h1>Home Page {tickets.map((p)=> p.subject)}</h1>
                 
             </div>
         )

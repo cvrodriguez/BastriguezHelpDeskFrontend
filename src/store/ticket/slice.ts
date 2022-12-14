@@ -1,9 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import type { RootState } from '../../store'
+import { type } from 'os'
 
 
 
-interface TicketState {
+
+type Ticket = {
     subject: string,
     description: string,
     closedAt: Date | null,
@@ -13,14 +14,14 @@ interface TicketState {
     severity: string,
 }
 
-const initialState: TicketState = {
-    subject: "",
-    description: "",
-    closedAt: null,
-    assignedTo: 0,
-    reportedBy: 0,
-    state: "",
-    severity: "",
+interface TicketsState {
+    ticketList: Ticket[]
+}
+
+
+
+const initialState: TicketsState = {
+    ticketList: []
 }
 
 export const ticketSlice = createSlice({
@@ -28,15 +29,14 @@ export const ticketSlice = createSlice({
     initialState,
     reducers:{
 
-        ticketsFetched: state =>{
-            state.subject = "hola"
-
+        ticketsFetched: (state, action) =>{
+            
+            state.ticketList = action.payload
+            
         }
 
     }
 })
 
 export const {ticketsFetched} = ticketSlice.actions
-export const selectTicket = (state: RootState) => state.tickets
-
 export default ticketSlice.reducer
