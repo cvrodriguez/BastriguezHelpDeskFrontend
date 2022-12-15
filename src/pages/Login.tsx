@@ -2,7 +2,7 @@ import * as React from "react";
 import { useState, useEffect } from 'react'
 import { useAppDispatch, useAppSelector } from '../hooks'
 import {selectToken} from '../store/user/selectors'
-import { useNavigate } from "react-router-dom"
+import { useNavigate, Link } from "react-router-dom"
 
 
 import { fetchUser } from '../store/user/thunks'
@@ -56,22 +56,22 @@ const Login: React.FC<{}> = () => {
 
                 <div className="btns-extra-login">
                     <div>
-                        <a className="extra-login-btn fb-btn">
+                        <button className="extra-login-btn fb-btn">
                             <i className="fa fa-facebook fa-fw">
                             </i> Login with Facebook
-                        </a>
+                        </button>
                     </div>
                     <div>
-                        <a className="google btn">
+                        <button className="google btn">
                             <i className="fa fa-google fa-fw">
                             </i> Login with Google+
-                        </a>
+                        </button>
                     </div>
                 </div>
 
                 <div className="sign-up">
                     <span style={{ color: "#D7D7D9" }}>Don't have an account? <br />
-                        <a>Sign Up for free</a>
+                        <Link to="/signup">Sign Up for free</Link>
                     </span>
                 </div>
 
