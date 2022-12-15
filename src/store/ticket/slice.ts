@@ -1,8 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { type } from 'os'
-
-
-
+import { createSlice } from '@reduxjs/toolkit'
 
 type Ticket = {
     subject: string,

@@ -1,5 +1,5 @@
 import * as React from "react";
-import  { useState, useEffect } from 'react'
+import  {  useEffect } from 'react'
 import { useAppSelector, useAppDispatch } from '../hooks'
 import {selectTickets} from '../store/ticket/slectors'
 import {fetchTickets} from '../store/ticket/thunks'
