@@ -1,0 +1,38 @@
+.banner-page{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 150px;
+    background-color: #133340;
+}
+.left-side{
+
+    width: 60%;
+}
+
+.right-side{
+   
+    width: 40%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 20px;
+    margin-right: 40px;
+}
+
+.perfil-action .btn{
+  
+  
+  border: none;
+    
+    
+}
+
+
+
+
+
+.perfil{
+    width: 100px;
+    height: 100px;
+}
