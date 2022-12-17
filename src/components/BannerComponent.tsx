@@ -17,7 +17,7 @@ const BannerComponent: React.FC<{}> = () => {
             </div>
             <div className="right-side">
                 <i className="fa fa-google fa-fw"></i>
-                <Image className="perfil" src="https://images.unsplash.com/photo-1616874535244-73aea5daadb9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8cGVyZmlsfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60" roundedCircle></Image>
+                <Image className="perfil" src="https://images.unsplash.com/photo-1569931727762-93dd90109ecd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fHBlcmZpbHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60" roundedCircle></Image>
 
            
                     <DropdownButton className="perfil-action"

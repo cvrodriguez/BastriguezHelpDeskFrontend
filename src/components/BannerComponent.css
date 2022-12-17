@@ -1,9 +1,13 @@
 .banner-page{
     display: flex;
+
     justify-content: space-between;
     align-items: center;
     height: 150px;
-    background-color: #133340;
+    background-image: url('https://acegif.com/wp-content/uploads/gif/outerspace-53.gif');
+    background-repeat: no-repeat;
+    background-size: cover;
+   
 }
 .left-side{
 
@@ -21,8 +25,9 @@
 }
 
 .perfil-action .btn{
+    width: 100%;
   
-  
+  background-color: none;
   border: none;
     
     
