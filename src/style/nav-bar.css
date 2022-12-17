@@ -1,0 +1,16 @@
+.nav-bar-page{
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+   
+}
+
+.nav-bar-page a{
+    text-decoration: none;
+    color: #A66B56;
+}
+
+.nav-bar-page a:hover{
+    
+    color: #133340;
+}

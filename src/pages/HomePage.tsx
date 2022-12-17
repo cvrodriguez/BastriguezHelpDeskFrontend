@@ -1,29 +1,36 @@
 import * as React from "react";
-import  {  useEffect } from 'react'
+import { useEffect } from 'react'
+import { Outlet, Route, Routes } from "react-router-dom";
+import NavBarComponent from "../components/NavBarComponent";
+import StatisticsComponent from "../components/StatisticsComponent";
 import { useAppSelector, useAppDispatch } from '../hooks'
-import {selectTickets} from '../store/ticket/slectors'
-import {fetchTickets} from '../store/ticket/thunks'
+import { selectTickets } from '../store/ticket/slectors'
+import { fetchTickets } from '../store/ticket/thunks'
 
-const  HomePage: React.FC  <{}> = () =>{
+
+const HomePage: React.FC<{}> = () => {
 
     const tickets = useAppSelector(selectTickets)
-   
+
     const dispatch = useAppDispatch()
 
-    useEffect(()=>{
+    useEffect(() => {
         dispatch(fetchTickets())
-    },[])
+    }, [])
 
-    
 
-    
-        return (
-            <div>
-                <h1>Home Page {tickets.map((p)=> p.subject)}</h1>
-                
-            </div>
-        )
-    
+
+
+    return (
+        <div>
+            <NavBarComponent></NavBarComponent>
+            <Outlet/>
+
+
+        </div>
+    )
+
+
 }
 
 export default HomePage;

@@ -1,7 +1,6 @@
 .App {
- 
- 
   text-align: center;
+  background-color: #f3f3f3;
 }
 
 .App-logo {
@@ -40,10 +39,18 @@
   }
 }
 
-.main{
+.main-container{
   display: flex;
    justify-content: space-between;
    margin-right: 60px;
    height: 700px;
 
+}
+
+.main-section{
+  display: flex;
+  flex-direction: column;
+ 
+  width: 100%;
+  padding: 0;
 }
