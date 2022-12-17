@@ -1,16 +1,11 @@
 import React from 'react';
-import HomePage from './pages/HomePage'
-import Login from './pages/Login'
+
 import { Routes, Route, } from 'react-router-dom'
-import BannerComponent from './components/BannerComponent'
-import SideBarComponent from './components/SideBarComponent'
-
-
 
 import './App.css';
-import StatisticsComponent from './components/StatisticsComponent';
-import TickestListComponent from './components/TickestListComponent';
-import AgentstListComponent from './components/AgentstListComponent';
+import {BannerComponent, SideBarComponent, StatisticsComponent, 
+  TickestListComponent, AgentstListComponent} from './components';
+  import {LoginPage, HomePage} from './pages'
 
 
 function App() {
@@ -29,7 +24,7 @@ function App() {
         <div className='main-section'>
 
           <Routes >
-            <Route path='/login' element={<Login></Login>}></Route>
+            <Route path='/login' element={<LoginPage></LoginPage>}></Route>
 
             <Route path='/' element={<HomePage></HomePage>}>
               <Route path='statistics' index element={<StatisticsComponent />} />

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 import '../style/nav-bar.css'
 
-const NavBarComponent: React.FC<{}> = () => {
+export const NavBarComponent: React.FC<{}> = () => {
     return(
         <Navbar className="nav-bar-page">
             <Navbar.Brand>
@@ -20,4 +20,3 @@ const NavBarComponent: React.FC<{}> = () => {
     )
 }
 
-export default NavBarComponent;

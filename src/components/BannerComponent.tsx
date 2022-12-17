@@ -4,9 +4,9 @@ import Image from "react-bootstrap/Image";
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 
-import './BannerComponent.css'
+import '../style/banner-component.css'
 
-const BannerComponent: React.FC<{}> = () => {
+export const BannerComponent: React.FC<{}> = () => {
 
 
     return (
@@ -39,5 +39,3 @@ const BannerComponent: React.FC<{}> = () => {
     )
 
 }
-
-export default BannerComponent;

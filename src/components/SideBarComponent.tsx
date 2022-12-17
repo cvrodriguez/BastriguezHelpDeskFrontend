@@ -1,11 +1,11 @@
 import * as React from "react";
 import { useState } from "react";
 
-import './SideBar.css'
+import '../style/side-bar.css'
 import { MdArrowForward, MdArrowBack, MdDateRange, MdChat, MdNoteAdd } from "react-icons/md";
 
 
-const SideBarComponent: React.FC<{}> = () => {
+export const SideBarComponent: React.FC<{}> = () => {
 
     const [sideBar, setSideBar] = useState(false);
     const handleChangeSideBar = () => setSideBar((prevState) => !prevState);
@@ -39,4 +39,3 @@ const SideBarComponent: React.FC<{}> = () => {
     );
 }
 
-export default SideBarComponent;

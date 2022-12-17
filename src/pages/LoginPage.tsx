@@ -10,7 +10,7 @@ import { fetchUser } from '../store/user/thunks'
 import Form from 'react-bootstrap/Form';
 import '../style/login.css'
 
-const Login: React.FC<{}> = () => {
+export const LoginPage: React.FC<{}> = () => {
     const dispatch = useAppDispatch()
 
     const token = useAppSelector(selectToken)
@@ -77,10 +77,8 @@ const Login: React.FC<{}> = () => {
 
             </div>
 
-
         </div>
     )
 
 }
 
-export default Login;
