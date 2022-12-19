@@ -11,6 +11,7 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Table from 'react-bootstrap/Table';
 import Image from "react-bootstrap/Image";
+import styled from "styled-components";
 
 import '../style/table.css'
 
@@ -32,46 +33,46 @@ export const TickestListComponent: React.FC<{}> = () => {
     }, [])
 
     return (
-        
-            
-            <div className="main-page-container">
-                <div>
+
+
+        <div className="main-page-container">
+            <div>
                 <BarButtosComponent></BarButtosComponent>
-                </div>
-            
+            </div>
 
 
-                <div className="container-of-table-detail">
 
-                    <Table hover className="table-section">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Role</th>
-                                <th>State</th>
-                            </tr>
-                        </thead>
-                        <tbody>
+            <div className="container-of-table-detail">
 
-                            {tickets.map((t) => {
+                <Table hover className="table-section">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Role</th>
+                            <th>State</th>
+                        </tr>
+                    </thead>
+                    <tbody>
 
-                                return (
-                                    <tr key={t.id} onClick={() => ticketDetail(t.id)}>
-                                        <td>{t.subject}</td>
-                                        <td>{t.assignedTo}</td>
-                                        <td>{t.state}</td>
-                                    </tr>
-                                )
-                            })}
+                        {tickets.map((t) => {
 
-                        </tbody>
+                            return (
+                                <tr key={t.id} onClick={() => ticketDetail(t.id)}>
+                                    <td>{t.subject}</td>
+                                    <td>{t.assignedTo}</td>
+                                    <td>{t.state}</td>
+                                </tr>
+                            )
+                        })}
 
-                    </Table>
+                    </tbody>
 
-                    <div>
+                </Table>
+
+                <div className="card">
                     {ticketById ?
-                        <div className="card">
-                            <Card className="text-center">
+                  
+                            <StyleCard>
                                 <Card.Header className="card-header">
                                     <Image className="perfil" alt="" src="https://images.unsplash.com/photo-1569931727762-93dd90109ecd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fHBlcmZpbHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60" roundedCircle ></Image>
                                     {`${ticketById.reporter.firstName}, ${ticketById.reporter.lastName}`}</Card.Header>
@@ -80,12 +81,12 @@ export const TickestListComponent: React.FC<{}> = () => {
                                     <Card.Text>
                                         {ticketById.description}
                                     </Card.Text>
-                                    <Button variant="primary">Go somewhere</Button>
+                                     {/* <Button>Go somewhere</Button> */}
                                 </Card.Body>
                                 <Card.Footer className="text-muted">2 days ago</Card.Footer>
-                            </Card>
-                        </div> :
-                        <Card className="text-center">
+                            </StyleCard>
+                      :
+                        <StyleCard className="text-center">
                             <Card.Header className="card-header">
                                 <Image className="perfil" alt="" src="https://images.unsplash.com/photo-1569931727762-93dd90109ecd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fHBlcmZpbHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60" roundedCircle ></Image>Report By User
                             </Card.Header>
@@ -94,19 +95,20 @@ export const TickestListComponent: React.FC<{}> = () => {
                                 <Card.Text>
                                     Description
                                 </Card.Text>
-                                <Button>Go somewhere</Button>
+                                {/* <Button>Go somewhere</Button> */}
                             </Card.Body>
                             <Card.Footer className="text-muted">2 days ago</Card.Footer>
-                        </Card>
+                        </StyleCard>
                     }
-                    </div>
                 </div>
-
             </div>
 
-    
-
-
+        </div>
 
     )
 }
+
+const StyleCard = styled(Card)`
+width: 100%;
+background-color: red;
+`

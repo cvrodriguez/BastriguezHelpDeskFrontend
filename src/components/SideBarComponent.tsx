@@ -47,4 +47,5 @@ width: 120px
 
 const StyleSideBarButtonCloseAndOpen = styled(ButtonApp)`
 align-self: flex-end;
+border: none;
 `
