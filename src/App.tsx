@@ -16,9 +16,7 @@ function App() {
   return (
 
     <div className='App'>
-      <div>
-        <BannerComponent></BannerComponent>
-      </div>
+      <BannerComponent></BannerComponent>
 
 
       <div className='main-container'>

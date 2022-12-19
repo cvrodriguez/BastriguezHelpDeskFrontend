@@ -1,0 +1,50 @@
+.main-page-container {
+    background-color: white;
+    border-radius: 25px;
+    margin-left: 40px;
+    /* height: 600px; */
+    padding: 25px;
+
+}
+
+.container-of-table-detail {
+    display: flex;
+    background-color: aquamarine;
+  
+
+}
+
+.table-section {
+    width: 40%;
+    background-color: white;
+    
+}
+
+.card {
+    width: 40%;
+ 
+    background-color: rebeccapurple;
+    border-radius: 10px;
+    box-shadow: -5px 8px 20px 4px rgba(0, 0, 0, 0.53);
+    -webkit-box-shadow: -5px 8px 20px 4px rgba(0, 0, 0, 0.53);
+    -moz-box-shadow: -5px 8px 20px 4px rgba(0, 0, 0, 0.53);
+}
+
+.card-header {
+    background-color: #18778C;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    color: aliceblue;
+}
+
+.card-body {
+    background-color: aqua;
+    width: 100%;
+
+}
+
+.perfil {
+    width: 60px;
+    height: 60px;
+}

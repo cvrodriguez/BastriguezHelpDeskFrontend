@@ -3,6 +3,8 @@ import { useState } from "react";
 
 import '../style/side-bar.css'
 import { MdArrowForward, MdArrowBack, MdDateRange, MdChat, MdNoteAdd } from "react-icons/md";
+import { ButtonApp } from "../style/ButtonApp";
+import styled from "styled-components";
 
 
 export const SideBarComponent: React.FC<{}> = () => {
@@ -15,27 +17,34 @@ export const SideBarComponent: React.FC<{}> = () => {
             {!sideBar ? (
 
                 <div className="closed-bar-side">
-                  <button className="btn"><MdNoteAdd/></button>
-                    <button className="btn"><MdChat/></button>
-                    <button className="btn"><MdDateRange/></button>
+                  <ButtonApp className="btn"><MdNoteAdd/></ButtonApp>
+                    <ButtonApp><MdChat/></ButtonApp>
+                    <ButtonApp className="btn"><MdDateRange/></ButtonApp>
 
-                    <button onClick={handleChangeSideBar}>
+                    <StyleSideBarButtonCloseAndOpen onClick={handleChangeSideBar}>
                         <MdArrowForward />
-                    </button>
+                    </StyleSideBarButtonCloseAndOpen>
                 </div>
             ) : (
 
                 <div className="opened-bar-side">
 
-                    <button className="btn"><MdNoteAdd/>Notes</button>
-                    <button className="btn"><MdChat/>Message</button>
-                    <button className="btn"><MdDateRange/>Calendar</button>
+                    <StyleSideBarButton className="btn"><MdNoteAdd/>Notes</StyleSideBarButton>
+                    <StyleSideBarButton className="btn"><MdChat/>Message</StyleSideBarButton>
+                    <StyleSideBarButton className="btn"><MdDateRange/>Calendar</StyleSideBarButton>
 
-                    <button className="btn-open-close" onClick={handleChangeSideBar}>
+                    <StyleSideBarButtonCloseAndOpen onClick={handleChangeSideBar}>
                         <MdArrowBack />
-                    </button>
+                    </StyleSideBarButtonCloseAndOpen>
                 </div>)}
         </div>
     );
 }
 
+const StyleSideBarButton = styled(ButtonApp)`
+width: 120px
+`
+
+const StyleSideBarButtonCloseAndOpen = styled(ButtonApp)`
+align-self: flex-end;
+`

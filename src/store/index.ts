@@ -3,11 +3,11 @@ import ticketsReducer from './ticket/slice'
 import userReducer from './user/slice'
 
 
-export  const store = configureStore({
+export const store = configureStore({
   reducer: {
     tickets: ticketsReducer,
-   user: userReducer
-    
+    user: userReducer
+
   }
 })
 
