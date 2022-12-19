@@ -1,5 +1,6 @@
 import * as React from "react";
 import { useEffect } from "react";
+import { Link } from "react-router-dom";
 
 
 import { useAppSelector, useAppDispatch } from '../hooks'
@@ -69,7 +70,7 @@ export const TickestListComponent: React.FC<{}> = () => {
                                 <Card.Text>
                                     {ticketById.description}
                                 </Card.Text>
-                                {/* <Button>Go somewhere</Button> */}
+                                <Link to="/ticket_detail">Detail</Link>
                             </StyleCardBody>
                             <Card.Footer className="text-muted">2 days ago</Card.Footer>
                         </StyleCard>

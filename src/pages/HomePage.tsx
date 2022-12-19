@@ -11,8 +11,6 @@ export const HomePage: React.FC<{}> = () => {
         <div>
             <NavBarComponent></NavBarComponent>
             <Container> <Outlet/></Container>
-           
-
 
         </div>
     )

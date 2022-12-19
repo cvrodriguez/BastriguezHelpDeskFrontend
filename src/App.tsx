@@ -7,7 +7,7 @@ import {
   BannerComponent, SideBarComponent, StatisticsComponent,
   TickestListComponent, AgentstListComponent, UserCreate
 } from './components';
-import { LoginPage, HomePage, MainPage } from './pages'
+import { LoginPage, HomePage, MainPage, TicketDetailPage } from './pages'
 
 
 function App() {
@@ -36,6 +36,7 @@ function App() {
               <Route path='tickets' element={<TickestListComponent />} />
               <Route path='agents' element={<AgentstListComponent />} />
             </Route>
+            <Route path='/ticket_detail' element={<TicketDetailPage/>}></Route>
           </Routes>
         </div>
 
