@@ -1,12 +1,13 @@
 import * as React from "react";
 import Navbar from 'react-bootstrap/Navbar';
 import { Link } from "react-router-dom";
+import styled from "styled-components";
 
-import '../style/nav-bar.css'
+
 
 export const NavBarComponent: React.FC<{}> = () => {
     return(
-        <Navbar className="nav-bar-page">
+        <Container className="nav-bar-page">
             <Navbar.Brand>
             <Link to="tickets">Tickets</Link>  |
             </Navbar.Brand>
@@ -16,7 +17,23 @@ export const NavBarComponent: React.FC<{}> = () => {
             <Navbar.Brand>
             <Link to="statistics">Statistics</Link>
             </Navbar.Brand>
-        </Navbar>
+        </Container>
     )
 }
 
+const Container  = styled(Navbar)`
+{
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+a{
+    text-decoration: none;
+    color: #A66B56;
+}
+
+a:hover{
+    
+    color: #133340;
+}
+`
