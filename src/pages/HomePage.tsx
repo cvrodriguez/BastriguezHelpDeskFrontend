@@ -22,10 +22,6 @@ const Container  = styled.div`
 {
     background-color: white;
     border-radius: 25px;
-    margin-left: 40px;
-    /* height: 600px; */
-    padding: 25px;
-
 }
 `
 

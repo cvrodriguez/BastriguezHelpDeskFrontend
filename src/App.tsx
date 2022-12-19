@@ -36,7 +36,7 @@ function App() {
               <Route path='tickets' element={<TickestListComponent />} />
               <Route path='agents' element={<AgentstListComponent />} />
             </Route>
-            <Route path='/ticket_detail' element={<TicketDetailPage/>}></Route>
+            <Route path='/ticket_detail/:id' element={<TicketDetailPage/>}></Route>
           </Routes>
         </div>
 

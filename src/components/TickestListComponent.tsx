@@ -36,7 +36,7 @@ export const TickestListComponent: React.FC<{}> = () => {
         <div>
             <BarButtosComponent></BarButtosComponent>
 
-            <Container className="container-of-table-detail">
+            <Container>
 
                 <TableContainer hover >
                     <thead>
@@ -62,7 +62,7 @@ export const TickestListComponent: React.FC<{}> = () => {
 
                     {ticketById ?
                         <StyleCard>
-                            <StyleCardHeader className="card-header">
+                            <StyleCardHeader>
                                 <ImagePefil  alt="" src="https://images.unsplash.com/photo-1569931727762-93dd90109ecd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fHBlcmZpbHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60" roundedCircle ></ImagePefil>
                                 {`${ticketById.reporter.firstName}, ${ticketById.reporter.lastName}`}</StyleCardHeader>
                             <StyleCardBody className="card-body">
@@ -70,13 +70,13 @@ export const TickestListComponent: React.FC<{}> = () => {
                                 <Card.Text>
                                     {ticketById.description}
                                 </Card.Text>
-                                <Link to="/ticket_detail">Detail</Link>
+                                <Link  to={`/ticket_detail/${ticketById.id}`}>Detail</Link>
                             </StyleCardBody>
                             <Card.Footer className="text-muted">2 days ago</Card.Footer>
                         </StyleCard>
                         :
                         <StyleCard className="text-center">
-                            <StyleCardHeader className="card-header">
+                            <StyleCardHeader>
                                 <ImagePefil  alt="" src="https://images.unsplash.com/photo-1569931727762-93dd90109ecd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fHBlcmZpbHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60" roundedCircle ></ImagePefil>Report By User
                             </StyleCardHeader>
                             <StyleCardBody>
@@ -95,9 +95,9 @@ export const TickestListComponent: React.FC<{}> = () => {
 }
 
 const Container = styled.div`
-padding: 10px;
 display: flex;
 justify-content: space-around;
+padding: 10px 10px 50px 10px;
 `
 
 const TableContainer = styled(Table)`

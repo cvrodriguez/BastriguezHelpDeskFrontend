@@ -25,7 +25,7 @@ const StyleButtonsBar = styled.div`
     display:  flex;
     justify-content: space-between;
     padding: 20px;
-   
+    border-radius: 20px;
 }
 .main-bar-buttons-right{
     display: flex;

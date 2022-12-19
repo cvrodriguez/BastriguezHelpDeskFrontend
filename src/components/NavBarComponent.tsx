@@ -25,7 +25,6 @@ const Container  = styled(Navbar)`
 {
     display: flex;
     justify-content: center;
-    margin-top: 30px;
 }
 a{
     text-decoration: none;
