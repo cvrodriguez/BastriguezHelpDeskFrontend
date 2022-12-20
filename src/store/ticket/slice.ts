@@ -1,6 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-
 type Ticket = {
     id: number,
     subject: string,
@@ -12,23 +11,27 @@ type Ticket = {
     severity: string,
     assigned:User,
     reporter:User,
+    comments: Comment[] | null
 }
 
 type User = {
-
     id: number,
     firstName: string,
     lastName: string,
     email: string,
     role: string,
     state: string,
-
 }
-
+type Comment = {
+    id:number,
+    comment: string,
+    createdAt: Date,
+    updatedAt:Date
+}
 
 interface TicketsState {
     ticketList: Ticket[],
-    ticketDetail: Ticket | null
+    ticketDetail: Ticket | null 
 }
 
 
