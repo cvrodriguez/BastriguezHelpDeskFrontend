@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 
@@ -8,11 +8,11 @@ import Card from 'react-bootstrap/Card';
 import '../style/detail.css'
 
 import { selectTicketById } from '../store/ticket/slectors'
-import { fetchTicketById } from '../store/ticket/thunks'
+import { fetchTicketById, UpdateTicketById } from '../store/ticket/thunks'
 import { useAppSelector, useAppDispatch } from '../hooks'
 import { InputApp } from "../style/InputApp";
 import { LabelApp } from '../style/LabelApp'
-import {ButtonApp} from '../style/ButtonApp'
+import { ButtonApp } from '../style/ButtonApp'
 
 export const TicketDetailPage: React.FC<{}> = () => {
 
@@ -21,61 +21,81 @@ export const TicketDetailPage: React.FC<{}> = () => {
 
     const params = useParams();
     const id = parseInt(params.id!)
-    const comments = ticketById && ticketById.comments
+    const comments = ticketById?.comments
+
+    const [firstNameReporter, setFirstNameReporter] = useState(ticketById?.reporter.firstName)
+    const [firstNameAssigned, setFirstNameAssigned] = useState(ticketById?.assigned.firstName)
+    const [subject, setSubject] = useState(ticketById?.state)
+    const [severity, setSeverity] = useState(ticketById?.severity)
+    const [state, setState] = useState(ticketById?.state)
+    const [description, setDescription] = useState(ticketById?.description)
 
 
     useEffect(() => {
         dispatch(fetchTicketById(id))
-
     }, [])
 
+    useEffect(() => {
+        setFirstNameReporter(ticketById?.reporter.lastName)
+        setFirstNameAssigned(ticketById?.assigned.firstName)
+        setSubject(ticketById?.subject)
+        setSeverity(ticketById?.severity)
+        setState(ticketById?.state)
+        setDescription(ticketById?.description)
+    }, [ticketById])
+
+
+    const submitForm = (e : React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+        dispatch(UpdateTicketById(id, subject!, severity!, state!, description!))
+    }
     return (
         <div className="container">
 
             {ticketById &&
-
-                <Form className="form-container">
-                    <Form.Group className="mb-3" controlId="formBasicEmail">
+                <Form className="form-container" onSubmit={submitForm}>
+                    <Form.Group className="mb-3">
                         <LabelApp>Report By</LabelApp>
-                        <InputApp type="text" placeholder="Enter email" value={ticketById.reporter.firstName} />
+                        <InputApp readOnly type="text" placeholder="Enter name" value={firstNameReporter!} />
                     </Form.Group>
 
-                    <Form.Group className="mb-3" controlId="formBasicEmail">
+                    <Form.Group className="mb-3" >
                         <LabelApp>Assign To</LabelApp>
-                        <InputApp type="text" placeholder="Enter email" value={ticketById.assigned.firstName} />
+                        <InputApp readOnly type="text" placeholder="Enter name" value={firstNameAssigned!} />
                     </Form.Group>
 
-                    <Form.Group className="mb-3" controlId="formBasicEmail">
+                    <Form.Group className="mb-3" >
                         <LabelApp>Subject</LabelApp>
-                        <InputApp type="text" placeholder="Enter email" value={ticketById.subject} />
+                        <InputApp type="text" placeholder="Enter subject" value={subject!}
+                            onChange={(e) => setSubject(e.target.value)} />
                     </Form.Group>
 
-                    <Form.Group className="mb-3" controlId="formBasicPassword">
-                    <LabelApp>Severity</LabelApp>
-                        <Form.Select aria-label="Default select example" className="select">
-                            <option value={ticketById.severity}>Medio</option>
-                            <option value={ticketById.severity}>Low</option>
-                            <option value={ticketById.severity}>Hight</option>
-                        </Form.Select>
-                        
-                    </Form.Group>
-
-                    <Form.Group className="mb-3" controlId="formBasicPassword">
-                    <LabelApp>State</LabelApp>
-                        <Form.Select  className="select" >
-                            <option value={ticketById.state}>Pending</option>
-                            <option value={ticketById.state}>Open</option>
-                            <option value={ticketById.state}>Closed</option>
+                    <Form.Group className="mb-3" >
+                        <LabelApp>Severity</LabelApp>
+                        <Form.Select aria-label="Default select example" className="select" value={severity!}
+                            onChange={(e) => setSeverity(e.target.value)}>
+                            <option value="Medio">Medio</option>
+                            <option value="Low">Low</option>
+                            <option value="High">High</option>
                         </Form.Select>
                     </Form.Group>
 
-                    <Form.Group className="mb-3" controlId="formBasicEmail">
+                    <Form.Group className="mb-3" >
+                        <LabelApp>State</LabelApp>
+                        <Form.Select className="select" onChange={(e) => setState(e.target.value)} >
+                            <option value="Pending">Pending</option>
+                            <option value="Open">Open</option>
+                            <option value="Closed">Closed</option>
+                        </Form.Select>
+                    </Form.Group>
+
+                    <Form.Group className="mb-3" >
                         <LabelApp>Description</LabelApp>
-                        <InputApp as="textarea" rows={4} placeholder="Enter email" value={ticketById.description} />
+                        <textarea  placeholder="Enter email" value={description!}
+                       onChange={(e) => setDescription(e.target.value!)}  />
                     </Form.Group>
 
-
-                    <ButtonApp primary type="submit">
+                    <ButtonApp type="submit">
                         Submit
                     </ButtonApp>
                 </Form>
@@ -83,15 +103,12 @@ export const TicketDetailPage: React.FC<{}> = () => {
             <div className="card-container">
                 {comments && comments.map((c) => {
                     return (
-
                         <Card key={c.id} className="card" >
-
                             <Card.Body className="card-body" >
                                 <Card.Title></Card.Title>
                                 <Card.Subtitle className="mb-2 text-muted"></Card.Subtitle>
                                 <Card.Text>{c.comment}</Card.Text>
                             </Card.Body>
-
                         </Card>
                     )
                 })
