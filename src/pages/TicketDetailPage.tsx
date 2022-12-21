@@ -91,7 +91,7 @@ export const TicketDetailPage: React.FC<{}> = () => {
 
                     <Form.Group className="mb-3" >
                         <LabelApp>Description</LabelApp>
-                        <textarea  placeholder="Enter email" value={description!}
+                        <textarea rows={5} className="text-area"  placeholder="Enter email" value={description!}
                        onChange={(e) => setDescription(e.target.value!)}  />
                     </Form.Group>
 

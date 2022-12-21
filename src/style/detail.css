@@ -46,3 +46,14 @@
     color: #A66B56;
 }
 
+.text-area{
+    
+    border: 0;
+    border-bottom: 1px solid #D7D7D9;
+    background: transparent;
+    width: 100%;
+    padding: 8px 0 5px 0;
+    font-size: 16px;
+    color: #A66B56;
+}
+
