@@ -1,6 +1,7 @@
 import React from 'react';
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
+import Spinner from 'react-bootstrap/Spinner';
 import { Routes, Route, } from 'react-router-dom'
 
 import './App.css';
@@ -12,7 +13,6 @@ import { LoginPage, HomePage, MainPage, TicketDetailPage } from './pages'
 import { loginSuccess } from './store/user/slice';
 import { useAppDispatch } from './hooks';
 
-
 function App() {
   const { user, isAuthenticated, isLoading, getIdTokenClaims } = useAuth0();
   const dispatch = useAppDispatch()
@@ -23,21 +23,22 @@ function App() {
 
       if (claims) {
         const roles = claims!['http://bastriguez.com/roles']
-        dispatch( loginSuccess({user, isAuthenticated, isLoading, roles}))
-       
+        dispatch(loginSuccess({ user, isAuthenticated, isLoading, roles }))
       }
     }
     role()
   }, [user, getIdTokenClaims])
 
   if (isLoading) {
-    return <div>Loading ...</div>;
+    return <div>
+      <Spinner animation="grow" size="sm" />
+      <Spinner animation="grow" />
+      Loading ...</div>;
   }
   return (
 
     <div className='App'>
       <BannerComponent></BannerComponent>
-
 
       <div className='main-container'>
         <SideBarComponent></SideBarComponent>
