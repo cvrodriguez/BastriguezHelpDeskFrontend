@@ -13,6 +13,7 @@ import { useAppSelector, useAppDispatch } from '../hooks'
 import { InputApp } from "../style/InputApp";
 import { LabelApp } from '../style/LabelApp'
 import { ButtonApp } from '../style/ButtonApp'
+import { createComment } from "../store/comment/thunks";
 
 export const TicketDetailPage: React.FC<{}> = () => {
 
@@ -29,6 +30,7 @@ export const TicketDetailPage: React.FC<{}> = () => {
     const [severity, setSeverity] = useState(ticketById?.severity)
     const [state, setState] = useState(ticketById?.state)
     const [description, setDescription] = useState(ticketById?.description)
+    const [comment, setComment] = useState("")
 
 
     useEffect(() => {
@@ -45,9 +47,15 @@ export const TicketDetailPage: React.FC<{}> = () => {
     }, [ticketById])
 
 
-    const submitForm = (e : React.FormEvent<HTMLFormElement>) => {
+    const submitForm = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         dispatch(UpdateTicketById(id, subject!, severity!, state!, description!))
+    }
+
+    const addComment = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+        dispatch(createComment(id!, comment))
+
     }
     return (
         <div className="container">
@@ -91,8 +99,8 @@ export const TicketDetailPage: React.FC<{}> = () => {
 
                     <Form.Group className="mb-3" >
                         <LabelApp>Description</LabelApp>
-                        <textarea rows={5} className="text-area"  placeholder="Enter email" value={description!}
-                       onChange={(e) => setDescription(e.target.value!)}  />
+                        <textarea rows={5} className="text-area" placeholder="Enter email" value={description!}
+                            onChange={(e) => setDescription(e.target.value!)} />
                     </Form.Group>
 
                     <ButtonApp type="submit">
@@ -113,6 +121,12 @@ export const TicketDetailPage: React.FC<{}> = () => {
                     )
                 })
                 }
+
+                <Form onSubmit={addComment}>
+                    <textarea className="text-area" value={comment}  onChange={(e) => setComment(e.target.value)} ></textarea>
+                    <ButtonApp type="submit" primary='true'>Add Comment</ButtonApp>
+                </Form>
+
             </div>
 
 
