@@ -2,21 +2,25 @@ import { createSlice } from "@reduxjs/toolkit";
 
 type User = {
   id: number,
-  firstName: string,
-  lastName: string,
+  given_name: string,
+  family_name: string,
+  picture: string,
   email: string,
   role: string,
   state: boolean,
+  name: string
 }
 
 interface UserState {
-  token: string | null,
-  user: User | null
+  user: User | null,
+  roles: string[],
+  isAuthenticated:boolean
 }
 
 const initialState: UserState = {
-  token: localStorage.getItem("token"),
-  user: null
+  user: null,
+  roles: [],
+  isAuthenticated:false
 }
 
 
@@ -25,14 +29,17 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     loginSuccess: (state, action) => {
+      console.log(action.payload)
       localStorage.setItem("token", action.payload.token);
-      state.token = action.payload.token;
+      state.isAuthenticated = action.payload.isAuthenticated;
       state.user = action.payload.user;
+      state.roles = action.payload.roles;
     },
     logOut: (state, action) => {
-      localStorage.removeItem("token");
-      state.token = null;
+      
       state.user = null;
+      state.isAuthenticated = false
+      state.roles = []
     },
     tokenStillValid: (state, action) => {
       state.user = action.payload.user;

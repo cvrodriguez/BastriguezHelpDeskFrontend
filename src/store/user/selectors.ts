@@ -1,4 +1,6 @@
 import type { RootState } from '../../store'
 
-export const selectToken = (state: RootState) => state.user.token;
+
 export const selectUser = (state: RootState) => state.user.user;
+export const selectUserRole = (state: RootState) => state.user.roles;
+export const selectUserAuthenticated = (state: RootState) => state.user.isAuthenticated;
