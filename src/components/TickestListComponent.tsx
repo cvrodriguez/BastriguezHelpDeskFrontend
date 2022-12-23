@@ -1,7 +1,5 @@
 import * as React from "react";
 import { useEffect } from "react";
-import { Link } from "react-router-dom";
-
 
 import { useAppSelector, useAppDispatch } from '../hooks'
 import { selectTickets, selectTicketById } from '../store/ticket/slectors'
@@ -12,14 +10,13 @@ import Card from 'react-bootstrap/Card';
 import Table from 'react-bootstrap/Table';
 import Image from "react-bootstrap/Image";
 import styled from "styled-components";
-
+import { LinkApp } from "../style/LinkApp";
 
 
 export const TickestListComponent: React.FC<{}> = () => {
 
     const tickets = useAppSelector(selectTickets)
     const ticketById = useAppSelector(selectTicketById)
-  
     const dispatch = useAppDispatch()
 
     const ticketDetail = (id: number) => {
@@ -37,7 +34,6 @@ export const TickestListComponent: React.FC<{}> = () => {
             <BarButtosComponent></BarButtosComponent>
 
             <Container>
-
                 <TableContainer hover >
                     <thead>
                         <tr>
@@ -70,7 +66,7 @@ export const TickestListComponent: React.FC<{}> = () => {
                                 <Card.Text>
                                     {ticketById.description}
                                 </Card.Text>
-                                <Link  to={`/ticket_detail/${ticketById.id}`}>Detail</Link>
+                                <LinkApp  to={`/ticket_detail/${ticketById.id}`}>Detail</LinkApp>
                             </StyleCardBody>
                             <Card.Footer className="text-muted">2 days ago</Card.Footer>
                         </StyleCard>
@@ -84,7 +80,6 @@ export const TickestListComponent: React.FC<{}> = () => {
                                 <Card.Text>
                                     Description
                                 </Card.Text>
-                                {/* <Button>Go somewhere</Button> */}
                             </StyleCardBody>
                             <Card.Footer className="text-muted">2 days ago</Card.Footer>
                         </StyleCard>
@@ -102,6 +97,7 @@ padding: 10px 10px 50px 10px;
 
 const TableContainer = styled(Table)`
 width: 40%;
+text-align: left;
 background-color: white;
 `
 
