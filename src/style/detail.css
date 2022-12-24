@@ -11,10 +11,13 @@
 }
 
 .form-container {
-
+    border-radius: 15px;
+    padding: 20px 30px;
     text-align: left;
-
     width: 40%;
+    box-shadow: -8px 3px 65px 7px rgba(0, 0, 0, 0.4);
+    -webkit-box-shadow: -8px 3px 65px 7px rgba(0, 0, 0, 0.4);
+    -moz-box-shadow: -8px 3px 65px 7px rgba(0, 0, 0, 0.4);
 
 }
 
@@ -37,7 +40,7 @@
     text-align: left;
 }
 
-.select{
+.select {
     border: 0;
     border-bottom: 1px solid #D7D7D9;
     width: 100%;
@@ -46,8 +49,8 @@
     color: #A66B56;
 }
 
-.text-area{
-    
+.text-area {
+
     border: 0;
     border-bottom: 1px solid #D7D7D9;
     background: transparent;
@@ -56,4 +59,3 @@
     font-size: 16px;
     color: #A66B56;
 }
-

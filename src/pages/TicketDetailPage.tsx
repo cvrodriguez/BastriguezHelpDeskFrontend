@@ -103,8 +103,8 @@ export const TicketDetailPage: React.FC<{}> = () => {
                             onChange={(e) => setDescription(e.target.value!)} />
                     </Form.Group>
 
-                    <ButtonApp type="submit">
-                        Submit
+                    <ButtonApp primary type="submit">
+                        Save
                     </ButtonApp>
                 </Form>
             }

@@ -10,6 +10,8 @@ import { selectUser } from '../store/user/selectors'
 import styled from "styled-components";
 import { useAppSelector } from "../hooks";
 import { ButtonApp } from "../style/ButtonApp";
+import { LinkApp } from "../style/LinkApp";
+
 
 export const BannerComponent: React.FC<{}> = () => {
 
@@ -21,7 +23,9 @@ export const BannerComponent: React.FC<{}> = () => {
             {user && (<StyledBanner>
 
                 <div className="left-side">
-                    <h1 style={{ color: "#A66B56" }}>Welcome back,Matthew</h1>
+                   <LinkApp to={"/"} style={{display: "block"}}>
+                   <h1 style={{ color: "#A66B56" }}>Welcome back, {user.given_name}</h1></LinkApp>  
+                   
                     <span style={{ color: "#D7D7D9" }}>Haz lo que puedas, con lo que tienes, dónde estás</span>
                 </div>
                 <div className="right-side">
@@ -64,10 +68,13 @@ const StyledBanner = styled.div`
     background-image: url('https://acegif.com/wp-content/uploads/gif/outerspace-53.gif');
     background-repeat: no-repeat;
     background-size: cover;
+   
+    
 }
 
 .left-side{
     width: 60%;
+    text-align: center;
 }
 
 .right-side{
