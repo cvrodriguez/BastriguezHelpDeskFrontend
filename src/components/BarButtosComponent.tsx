@@ -2,13 +2,19 @@ import * as React from "react";
 import { FiPlus } from "react-icons/fi";
 import { ButtonApp } from "../style/ButtonApp";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 
 export const BarButtosComponent: React.FC<{}> = () => {
+    
+    const navigate = useNavigate()
+    const goToCreateTicket = ()=>{
+        navigate("/createTicket")
+    }
     return(
         <StyleButtonsBar >
             <div>
-                <ButtonApp  primary> <FiPlus/>Add User</ButtonApp>
+                <ButtonApp onClick={goToCreateTicket}  primary> <FiPlus/>Add Ticket</ButtonApp>
             </div>
             <div className="main-bar-buttons-right">
             <ButtonApp > <FiPlus/>Export Data</ButtonApp>

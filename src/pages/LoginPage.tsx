@@ -23,7 +23,6 @@ export const LoginPage: React.FC<{}> = () => {
     const submitForm = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         dispatch(fetchUser(email, password))
-        //dispatch(login(email, password))
     }
 
 

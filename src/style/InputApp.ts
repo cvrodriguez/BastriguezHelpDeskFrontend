@@ -1,10 +1,5 @@
 import styled from "styled-components"
 
-
-// interface InputAppProps {
-//     readonly primary: boolean;
-// }
-
 export const InputApp = styled.input `
 
 {  

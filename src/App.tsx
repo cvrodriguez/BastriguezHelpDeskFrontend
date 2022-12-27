@@ -12,6 +12,7 @@ import {
 import { LoginPage, HomePage, MainPage, TicketDetailPage } from './pages'
 import { loginSuccess } from './store/user/slice';
 import { useAppDispatch } from './hooks';
+import { CreateTicket } from './pages/CreateTikectPage';
 
 function App() {
   const { user, isAuthenticated, isLoading, getIdTokenClaims } = useAuth0();
@@ -35,6 +36,7 @@ function App() {
       <Spinner animation="grow" />
       Loading ...</div>;
   }
+
   return (
 
     <div className='App'>
@@ -57,7 +59,10 @@ function App() {
               <Route path='tickets' element={<TickestListComponent />} />
               <Route path='agents' element={<AgentstListComponent />} />
             </Route>
+
             <Route path='/ticket_detail/:id' element={<TicketDetailPage />}></Route>
+            <Route path='/createTicket' element={<CreateTicket />}></Route>
+
           </Routes>
         </div>
 

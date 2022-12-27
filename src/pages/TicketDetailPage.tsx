@@ -14,12 +14,15 @@ import { InputApp } from "../style/InputApp";
 import { LabelApp } from '../style/LabelApp'
 import { ButtonApp } from '../style/ButtonApp'
 import { createComment } from "../store/comment/thunks";
+import { useNavigate } from "react-router-dom";
 
 export const TicketDetailPage: React.FC<{}> = () => {
 
     const dispatch = useAppDispatch()
     const ticketById = useAppSelector(selectTicketById)
 
+     
+    const navigate = useNavigate()
     const params = useParams();
     const id = parseInt(params.id!)
     const comments = ticketById?.comments
@@ -47,15 +50,18 @@ export const TicketDetailPage: React.FC<{}> = () => {
     }, [ticketById])
 
 
-    const submitForm = (e: React.FormEvent<HTMLFormElement>) => {
+    const submitForm = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        dispatch(UpdateTicketById(id, subject!, severity!, state!, description!))
+      await  dispatch(UpdateTicketById(id, subject!, severity!, state!, description!))
+      navigate("/tickets")
     }
 
     const addComment = (e: React.FormEvent<HTMLFormElement>) => {
+        
         e.preventDefault()
         dispatch(createComment(id!, comment))
-
+       
+        
     }
     return (
         <div className="container">

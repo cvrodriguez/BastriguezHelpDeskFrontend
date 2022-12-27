@@ -1,0 +1,21 @@
+.container-ticket-create{
+    margin-top: 30px;
+    width: 80%;
+   
+    
+}
+.form-container-ticket-create{
+    padding-top: 30px;
+    border-radius: 20px;
+    background-color: white;
+    display: flex;
+    justify-content: space-around;
+    text-align: left;
+}
+.left-ticket-create{
+    width: 40%;
+
+}
+.right-ticket-create{
+    width: 40%;
+}
