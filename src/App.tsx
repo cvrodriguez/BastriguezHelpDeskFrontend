@@ -9,7 +9,7 @@ import {
   BannerComponent, SideBarComponent, StatisticsComponent,
   TickestListComponent, AgentstListComponent, UserCreate
 } from './components';
-import { LoginPage, HomePage, MainPage, TicketDetailPage } from './pages'
+import { HomePage, MainPage, TicketDetailPage } from './pages'
 import { loginSuccess } from './store/user/slice';
 import { useAppDispatch } from './hooks';
 import { CreateTicket } from './pages/CreateTikectPage';
@@ -17,6 +17,7 @@ import { CreateTicket } from './pages/CreateTikectPage';
 function App() {
   const { user, isAuthenticated, isLoading, getIdTokenClaims } = useAuth0();
   const dispatch = useAppDispatch()
+  const { loginWithRedirect } = useAuth0();
 
   useEffect(() => {
     const role = async () => {
@@ -36,6 +37,12 @@ function App() {
       <Spinner animation="grow" />
       Loading ...</div>;
   }
+  if (!isAuthenticated) {
+    loginWithRedirect()
+    return<div>
+     <Spinner animation="grow" size="sm" />
+    </div>
+  }
 
   return (
 
@@ -47,7 +54,7 @@ function App() {
         <div className='main-section'>
 
           <Routes >
-            <Route path='/login' element={<LoginPage></LoginPage>}></Route>
+           
             <Route path='/main' element={<MainPage></MainPage>}>
               <Route path='createUser' element={<UserCreate />} />
               <Route index element={<UserCreate />} />
