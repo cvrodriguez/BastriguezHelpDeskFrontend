@@ -14,10 +14,12 @@ type User = {
 interface UserState {
   user: User | null,
   roles: string[],
-  isAuthenticated:boolean
+  isAuthenticated:boolean,
+  usersList: User[]
 }
 
 const initialState: UserState = {
+  usersList:[],
   user: null,
   roles: [],
   isAuthenticated:false
@@ -36,7 +38,6 @@ export const userSlice = createSlice({
       state.roles = action.payload.roles;
     },
     logOut: (state, action) => {
-      
       state.user = null;
       state.isAuthenticated = false
       state.roles = []
@@ -44,9 +45,12 @@ export const userSlice = createSlice({
     tokenStillValid: (state, action) => {
       state.user = action.payload.user;
     },
+    usersFetched: (state, action) => {
+      state.usersList = action.payload;
+    },
   },
 });
 
-export const { loginSuccess, logOut, tokenStillValid } = userSlice.actions;
+export const { loginSuccess, logOut, tokenStillValid, usersFetched } = userSlice.actions;
 
 export default userSlice.reducer;
