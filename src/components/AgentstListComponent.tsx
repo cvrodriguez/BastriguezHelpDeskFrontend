@@ -2,8 +2,8 @@ import * as React from "react";
 import { useEffect } from "react";
 
 import { useAppDispatch, useAppSelector } from '../hooks'
-import { selectUsersList } from "../store/user/selectors";
-import { fetchUser } from "../store/user/thunks";
+import { selectUserDetail, selectUsersList } from "../store/user/selectors";
+import { fetchUser, fetchUserById } from "../store/user/thunks";
 
 import { BarButtosComponent } from "./BarButtosComponent";
 
@@ -17,9 +17,15 @@ export const AgentstListComponent: React.FC<{}> = () => {
 
     const dispatch = useAppDispatch()
     const users = useAppSelector(selectUsersList)
+    const user = useAppSelector(selectUserDetail)
+
+    const userDetail = (id:number) =>{
+        dispatch(fetchUserById(id))
+    }
 
     useEffect(() => {
         dispatch(fetchUser())
+       
 
     }, [])
     return (
@@ -36,7 +42,7 @@ export const AgentstListComponent: React.FC<{}> = () => {
                     <tbody>
                         {users.map((u) => {
                             return (
-                                <tr key={u.email} >
+                                <tr key={u.email} onClick={()=> userDetail(u.user_id)}>
                                     <td>{u.name}</td>
                                 </tr>
                             )
@@ -45,14 +51,15 @@ export const AgentstListComponent: React.FC<{}> = () => {
 
                 </TableContainer>
 
-                {users ? <StyleCard>
+                {user ? <StyleCard>
                     <StyleCardHeader>
-                        <ImagePefil alt="" src="https://images.unsplash.com/photo-1569931727762-93dd90109ecd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fHBlcmZpbHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60" roundedCircle ></ImagePefil>
-                        { }</StyleCardHeader>
+                        <ImagePefil alt="" src={user.picture} roundedCircle ></ImagePefil>
+                        {user.name }</StyleCardHeader>
                     <StyleCardBody className="card-body">
                         <Card.Title></Card.Title>
                         <Card.Text>
-                            { }
+                            { user.email}
+                           
                         </Card.Text>
                         {/* <LinkApp  to={`/ticket_detail/${}`}>Detail</LinkApp> */}
                     </StyleCardBody>

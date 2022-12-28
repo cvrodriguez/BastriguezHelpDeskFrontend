@@ -2,7 +2,7 @@ import axios from 'axios'
 import { AnyAction } from 'redux'
 import { RootState } from '../../store'
 import { ThunkAction } from 'redux-thunk'
-import { usersFetched } from './slice'
+import { userDetailFetched, usersFetched } from './slice'
 
 
 
@@ -17,3 +17,9 @@ export const fetchUser = (): ThunkAction<void, RootState, unknown, AnyAction> =>
         console.log(error)
     }
 }
+
+export const fetchUserById = (id:number): ThunkAction<void, RootState, unknown, AnyAction> => async dispatch =>{
+    const response = await axios.get(`${apiUrl}/users/${id}`)
+     dispatch(userDetailFetched(response.data))
+    
+  }
