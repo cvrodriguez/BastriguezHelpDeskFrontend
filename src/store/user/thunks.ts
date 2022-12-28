@@ -2,7 +2,7 @@ import axios from 'axios'
 import { AnyAction } from 'redux'
 import { RootState } from '../../store'
 import { ThunkAction } from 'redux-thunk'
-import { userDetailFetched, usersFetched } from './slice'
+import { userResponsableFetched, usersFetched, userAssignedFetched, userByIdFetched } from './slice'
 
 
 
@@ -18,8 +18,17 @@ export const fetchUser = (): ThunkAction<void, RootState, unknown, AnyAction> =>
     }
 }
 
-export const fetchUserById = (id:number): ThunkAction<void, RootState, unknown, AnyAction> => async dispatch =>{
+export const fetchUserResponsableById = (id: number): ThunkAction<void, RootState, unknown, AnyAction> => async dispatch => {
     const response = await axios.get(`${apiUrl}/users/${id}`)
-     dispatch(userDetailFetched(response.data))
-    
-  }
+    dispatch(userResponsableFetched(response.data))
+}
+
+export const fetchUserAssignedById = (id: number): ThunkAction<void, RootState, unknown, AnyAction> => async dispatch => {
+    const response = await axios.get(`${apiUrl}/users/${id}`)
+    dispatch(userAssignedFetched(response.data))
+}
+
+export const fetchUserById = (id: number): ThunkAction<void, RootState, unknown, AnyAction> => async dispatch => {
+    const response = await axios.get(`${apiUrl}/users/${id}`)
+    dispatch(userByIdFetched(response.data))
+}

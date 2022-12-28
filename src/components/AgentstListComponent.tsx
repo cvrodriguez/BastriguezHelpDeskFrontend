@@ -2,13 +2,12 @@ import * as React from "react";
 import { useEffect } from "react";
 
 import { useAppDispatch, useAppSelector } from '../hooks'
-import { selectUserDetail, selectUsersList } from "../store/user/selectors";
+import {selectUserById, selectUsersList } from "../store/user/selectors";
 import { fetchUser, fetchUserById } from "../store/user/thunks";
 
 import { BarButtosComponent } from "./BarButtosComponent";
 
 import styled from "styled-components";
-import { LinkApp } from "../style/LinkApp";
 import Table from 'react-bootstrap/Table';
 import Card from 'react-bootstrap/Card';
 import Image from "react-bootstrap/Image";
@@ -17,17 +16,16 @@ export const AgentstListComponent: React.FC<{}> = () => {
 
     const dispatch = useAppDispatch()
     const users = useAppSelector(selectUsersList)
-    const user = useAppSelector(selectUserDetail)
+    const user = useAppSelector(selectUserById)
 
     const userDetail = (id:number) =>{
         dispatch(fetchUserById(id))
     }
-
+   
     useEffect(() => {
         dispatch(fetchUser())
-       
-
     }, [])
+    
     return (
         <div>
             <BarButtosComponent></BarButtosComponent>
@@ -42,7 +40,7 @@ export const AgentstListComponent: React.FC<{}> = () => {
                     <tbody>
                         {users.map((u) => {
                             return (
-                                <tr key={u.email} onClick={()=> userDetail(u.user_id)}>
+                                <tr key={u.email} onClick={() => userDetail(u.user_id)} >
                                     <td>{u.name}</td>
                                 </tr>
                             )
@@ -59,9 +57,7 @@ export const AgentstListComponent: React.FC<{}> = () => {
                         <Card.Title></Card.Title>
                         <Card.Text>
                             { user.email}
-                           
                         </Card.Text>
-                        {/* <LinkApp  to={`/ticket_detail/${}`}>Detail</LinkApp> */}
                     </StyleCardBody>
                     <Card.Footer className="text-muted">2 days ago</Card.Footer>
                 </StyleCard>

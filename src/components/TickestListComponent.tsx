@@ -11,12 +11,15 @@ import Table from 'react-bootstrap/Table';
 import Image from "react-bootstrap/Image";
 import styled from "styled-components";
 import { LinkApp } from "../style/LinkApp";
+import { fetchUserResponsableById } from "../store/user/thunks";
+import { selectUserAssingTo } from "../store/user/selectors";
 
 
 export const TickestListComponent: React.FC<{}> = () => {
 
     const tickets = useAppSelector(selectTickets)
     const ticketById = useAppSelector(selectTicketById)
+    const userResponsible = useAppSelector(selectUserAssingTo)
     const dispatch = useAppDispatch()
 
     const ticketDetail = (id: number) => {
@@ -25,8 +28,11 @@ export const TickestListComponent: React.FC<{}> = () => {
 
     useEffect(() => {
         dispatch(fetchTickets())
+    }, [dispatch])
 
-    }, [])
+    useEffect(() => {
+        dispatch(fetchUserResponsableById(ticketById?.assignedTo!))
+    }, [ticketById, dispatch])
 
     return (
 
@@ -38,7 +44,7 @@ export const TickestListComponent: React.FC<{}> = () => {
                     <thead>
                         <tr>
                             <th>Name</th>
-                            <th>Role</th>
+                            <th>Severity</th>
                             <th>State</th>
                         </tr>
                     </thead>
@@ -47,7 +53,7 @@ export const TickestListComponent: React.FC<{}> = () => {
                             return (
                                 <tr key={t.id} onClick={() => ticketDetail(t.id)}>
                                     <td>{t.subject}</td>
-                                    <td>{t.assignedTo}</td>
+                                    <td>{t.severity}</td>
                                     <td>{t.state}</td>
                                 </tr>
                             )
@@ -59,8 +65,8 @@ export const TickestListComponent: React.FC<{}> = () => {
                     {ticketById ?
                         <StyleCard>
                             <StyleCardHeader>
-                                <ImagePefil  alt="" src="https://images.unsplash.com/photo-1569931727762-93dd90109ecd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fHBlcmZpbHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60" roundedCircle ></ImagePefil>
-                                {`${ticketById.reporter.firstName}, ${ticketById.reporter.lastName}`}</StyleCardHeader>
+                                <ImagePefil  alt="" src={userResponsible?.picture} roundedCircle ></ImagePefil>
+                                {userResponsible == null ? 'loading...':userResponsible?.name}</StyleCardHeader>
                             <StyleCardBody className="card-body">
                                 <Card.Title></Card.Title>
                                 <Card.Text>
