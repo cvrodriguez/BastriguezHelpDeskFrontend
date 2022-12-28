@@ -1,9 +1,18 @@
 import * as React from "react";
 import { useEffect } from "react";
 
-import {useAppDispatch,useAppSelector} from '../hooks'
+import { useAppDispatch, useAppSelector } from '../hooks'
 import { selectUsersList } from "../store/user/selectors";
 import { fetchUser } from "../store/user/thunks";
+
+import { BarButtosComponent } from "./BarButtosComponent";
+
+import styled from "styled-components";
+import { LinkApp } from "../style/LinkApp";
+import Table from 'react-bootstrap/Table';
+import Card from 'react-bootstrap/Card';
+import Image from "react-bootstrap/Image";
+
 export const AgentstListComponent: React.FC<{}> = () => {
 
     const dispatch = useAppDispatch()
@@ -13,13 +22,95 @@ export const AgentstListComponent: React.FC<{}> = () => {
         dispatch(fetchUser())
 
     }, [])
-    return(
-        <div>{users.map((u)=>{
-            return(
-                <div key={u.id}>
-                    <h1>{u.name}</h1>
-                </div>
-            )
-        })}</div>
+    return (
+        <div>
+            <BarButtosComponent></BarButtosComponent>
+            <Container>
+                <TableContainer hover >
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Role</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {users.map((u) => {
+                            return (
+                                <tr key={u.email} >
+                                    <td>{u.name}</td>
+                                </tr>
+                            )
+                        })}
+                    </tbody>
+
+                </TableContainer>
+
+                {users ? <StyleCard>
+                    <StyleCardHeader>
+                        <ImagePefil alt="" src="https://images.unsplash.com/photo-1569931727762-93dd90109ecd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fHBlcmZpbHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60" roundedCircle ></ImagePefil>
+                        { }</StyleCardHeader>
+                    <StyleCardBody className="card-body">
+                        <Card.Title></Card.Title>
+                        <Card.Text>
+                            { }
+                        </Card.Text>
+                        {/* <LinkApp  to={`/ticket_detail/${}`}>Detail</LinkApp> */}
+                    </StyleCardBody>
+                    <Card.Footer className="text-muted">2 days ago</Card.Footer>
+                </StyleCard>
+                    :
+                    <StyleCard className="text-center">
+                        <StyleCardHeader>
+                            <ImagePefil alt="" src="https://images.unsplash.com/photo-1569931727762-93dd90109ecd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fHBlcmZpbHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60" roundedCircle ></ImagePefil>Report By User
+                        </StyleCardHeader>
+                        <StyleCardBody>
+                            <Card.Title>Subject</Card.Title>
+                            <Card.Text>
+                                Description
+                            </Card.Text>
+                        </StyleCardBody>
+                        <Card.Footer className="text-muted">2 days ago</Card.Footer>
+                    </StyleCard>
+                }
+            </Container>
+        </div>
     )
 }
+const Container = styled.div`
+display: flex;
+justify-content: space-around;
+padding: 10px 10px 50px 10px;
+`
+
+const TableContainer = styled(Table)`
+width: 40%;
+text-align: left;
+background-color: white;`
+
+const StyleCard = styled(Card)`
+width: 40%;
+border-radius: 10px;
+box-shadow: -5px 8px 20px 4px rgba(0, 0, 0, 0.53);
+-webkit-box-shadow: -5px 8px 20px 4px rgba(0, 0, 0, 0.53);
+-moz-box-shadow: -5px 8px 20px 4px rgba(0, 0, 0, 0.53);
+`
+const StyleCardHeader = styled(Card.Header)`
+{
+    background-color: #18778C;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    color: aliceblue;
+}
+`
+
+const StyleCardBody = styled(Card.Body)`
+{
+    width: 100%;
+}
+`
+const ImagePefil = styled(Image)`
+{
+    width: 60px;
+    height: 60px;
+}`
