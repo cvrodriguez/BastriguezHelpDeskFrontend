@@ -2,14 +2,11 @@ import axios from 'axios'
 import { AnyAction } from 'redux'
 import { RootState } from '../../store'
 import { ThunkAction } from 'redux-thunk'
-import { userResponsableFetched, usersFetched, userAssignedFetched, userByIdFetched } from './slice'
-
-
+import { userReporterByFetched, usersFetched, userAssignedFetched, userByIdFetched } from './slice'
 
 const apiUrl = 'http://localhost:4000'
 
 export const fetchUser = (): ThunkAction<void, RootState, unknown, AnyAction> => async dispatch => {
-
     try {
         const response = await axios.get(`${apiUrl}/users`)
         dispatch(usersFetched(response.data))
@@ -18,12 +15,12 @@ export const fetchUser = (): ThunkAction<void, RootState, unknown, AnyAction> =>
     }
 }
 
-export const fetchUserResponsableById = (id: number): ThunkAction<void, RootState, unknown, AnyAction> => async dispatch => {
+export const fetchUserReporterById = (id: number): ThunkAction<void, RootState, unknown, AnyAction> => async dispatch => {
     const response = await axios.get(`${apiUrl}/users/${id}`)
-    dispatch(userResponsableFetched(response.data))
+    dispatch(userReporterByFetched(response.data))
 }
 
-export const fetchUserAssignedById = (id: number): ThunkAction<void, RootState, unknown, AnyAction> => async dispatch => {
+export const fetchUserAssignedToById = (id: number): ThunkAction<void, RootState, unknown, AnyAction> => async dispatch => {
     const response = await axios.get(`${apiUrl}/users/${id}`)
     dispatch(userAssignedFetched(response.data))
 }

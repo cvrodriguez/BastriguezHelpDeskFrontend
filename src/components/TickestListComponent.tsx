@@ -11,7 +11,7 @@ import Table from 'react-bootstrap/Table';
 import Image from "react-bootstrap/Image";
 import styled from "styled-components";
 import { LinkApp } from "../style/LinkApp";
-import { fetchUserResponsableById } from "../store/user/thunks";
+import { fetchUserAssignedToById} from "../store/user/thunks";
 import { selectUserAssingTo } from "../store/user/selectors";
 
 
@@ -19,7 +19,7 @@ export const TickestListComponent: React.FC<{}> = () => {
 
     const tickets = useAppSelector(selectTickets)
     const ticketById = useAppSelector(selectTicketById)
-    const userResponsible = useAppSelector(selectUserAssingTo)
+    const agent = useAppSelector(selectUserAssingTo)
     const dispatch = useAppDispatch()
 
     const ticketDetail = (id: number) => {
@@ -31,7 +31,7 @@ export const TickestListComponent: React.FC<{}> = () => {
     }, [dispatch])
 
     useEffect(() => {
-        dispatch(fetchUserResponsableById(ticketById?.assignedTo!))
+        dispatch(fetchUserAssignedToById(ticketById?.assignedTo!))
     }, [ticketById, dispatch])
 
     return (
@@ -65,8 +65,8 @@ export const TickestListComponent: React.FC<{}> = () => {
                     {ticketById ?
                         <StyleCard>
                             <StyleCardHeader>
-                                <ImagePefil  alt="" src={userResponsible?.picture} roundedCircle ></ImagePefil>
-                                {userResponsible == null ? 'loading...':userResponsible?.name}</StyleCardHeader>
+                                <ImagePefil  alt="" src={agent?.picture} roundedCircle ></ImagePefil>
+                                {agent == null ? 'loading...':agent?.name}</StyleCardHeader>
                             <StyleCardBody className="card-body">
                                 <Card.Title></Card.Title>
                                 <Card.Text>

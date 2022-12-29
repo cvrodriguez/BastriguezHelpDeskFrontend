@@ -13,7 +13,8 @@ import { selectTicketById } from '../store/ticket/slectors'
 import { fetchTicketById, UpdateTicketById } from '../store/ticket/thunks'
 import { useAppSelector, useAppDispatch } from '../hooks'
 import { createComment } from "../store/comment/thunks";
-import { selectUser } from "../store/user/selectors";
+import { selectUser, selectUserAssingTo, selectUserReporterBy } from "../store/user/selectors";
+import { fetchUserAssignedToById, fetchUserReporterById } from "../store/user/thunks";
 
 
 export const TicketDetailPage: React.FC<{}> = () => {
@@ -21,16 +22,15 @@ export const TicketDetailPage: React.FC<{}> = () => {
     const dispatch = useAppDispatch()
     const ticketById = useAppSelector(selectTicketById)
     const userLogin = useAppSelector(selectUser)
-     
-
-     
     const navigate = useNavigate()
     const params = useParams();
     const id = parseInt(params.id!)
     const comments = ticketById?.comments
+    const agent = useAppSelector(selectUserAssingTo)
+    const reporter =useAppSelector(selectUserReporterBy)
 
-    const [firstNameReporter, setFirstNameReporter] = useState(ticketById?.assignedTo)
-    const [firstNameAssigned, setFirstNameAssigned] = useState(ticketById?.reportedBy)
+    const [firstNameReporter, setFirstNameReporter] = useState("")
+    const [firstNameAssigned, setFirstNameAssigned] = useState("")
     const [subject, setSubject] = useState(ticketById?.state)
     const [severity, setSeverity] = useState(ticketById?.severity)
     const [state, setState] = useState(ticketById?.state)
@@ -43,15 +43,22 @@ export const TicketDetailPage: React.FC<{}> = () => {
     }, [])
 
     useEffect(() => {
-        setFirstNameReporter(ticketById?.reportedBy)
-        setFirstNameAssigned(ticketById?.assignedTo)
+        setFirstNameAssigned(agent?.name!)
+        setFirstNameReporter(reporter?.name!)
+    }, [agent, reporter])
+
+
+    useEffect(() => {
+        
         setSubject(ticketById?.subject)
         setSeverity(ticketById?.severity)
         setState(ticketById?.state)
         setDescription(ticketById?.description)
+
+        dispatch(fetchUserAssignedToById(ticketById?.assignedTo!))
+        dispatch(fetchUserReporterById(ticketById?.reportedBy!))
         
     }, [ticketById])
-
 
     const submitForm = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
@@ -62,7 +69,6 @@ export const TicketDetailPage: React.FC<{}> = () => {
     const addComment = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         dispatch(createComment(id!, comment, userLogin?.user_id! ))
-        console.log(userLogin?.user_id! , "usuario logiado probando")
     }
 
     return (
@@ -77,7 +83,7 @@ export const TicketDetailPage: React.FC<{}> = () => {
 
                     <Form.Group className="mb-3" >
                         <LabelApp>Assign To</LabelApp>
-                        <InputApp readOnly type="text" placeholder="Enter name" value={firstNameAssigned!} />
+                        <InputApp readOnly type="text" placeholder="Enter name" value={firstNameAssigned} />
                     </Form.Group>
 
                     <Form.Group className="mb-3" >
