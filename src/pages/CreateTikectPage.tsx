@@ -34,7 +34,7 @@ export const CreateTicket: React.FC<{}> = () => {
     useEffect(() => {
         dispatch(fetchTicketById(id))
         dispatch(fetchUser())
-    }, [])
+    }, [dispatch, id])
 
 
     const submitCeateTicket = async (e: React.FormEvent<HTMLFormElement>) => {

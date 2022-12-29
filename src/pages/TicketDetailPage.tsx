@@ -40,7 +40,7 @@ export const TicketDetailPage: React.FC<{}> = () => {
 
     useEffect(() => {
         dispatch(fetchTicketById(id))
-    }, [])
+    }, [dispatch, id])
 
     useEffect(() => {
         setFirstNameAssigned(agent?.name!)
@@ -58,7 +58,7 @@ export const TicketDetailPage: React.FC<{}> = () => {
         dispatch(fetchUserAssignedToById(ticketById?.assignedTo!))
         dispatch(fetchUserReporterById(ticketById?.reportedBy!))
         
-    }, [ticketById])
+    }, [dispatch, ticketById])
 
     const submitForm = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()

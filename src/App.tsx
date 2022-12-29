@@ -29,7 +29,7 @@ function App() {
       }
     }
     role()
-  }, [user, getIdTokenClaims])
+  }, [user, getIdTokenClaims, dispatch, isAuthenticated, isLoading])
 
   if (isLoading) {
     return <div>

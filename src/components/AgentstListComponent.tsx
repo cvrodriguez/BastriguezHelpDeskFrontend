@@ -24,7 +24,7 @@ export const AgentstListComponent: React.FC<{}> = () => {
    
     useEffect(() => {
         dispatch(fetchUser())
-    }, [])
+    }, [dispatch])
     
     return (
         <div>
