@@ -1,25 +1,27 @@
 import * as React from "react";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-
+import { useParams , useNavigate} from "react-router-dom";
 
 import Form from 'react-bootstrap/Form';
 import Card from 'react-bootstrap/Card';
+import { InputApp } from "../style/InputApp";
+import { LabelApp } from '../style/LabelApp'
+import { ButtonApp } from '../style/ButtonApp'
 import '../style/detail.css'
 
 import { selectTicketById } from '../store/ticket/slectors'
 import { fetchTicketById, UpdateTicketById } from '../store/ticket/thunks'
 import { useAppSelector, useAppDispatch } from '../hooks'
-import { InputApp } from "../style/InputApp";
-import { LabelApp } from '../style/LabelApp'
-import { ButtonApp } from '../style/ButtonApp'
 import { createComment } from "../store/comment/thunks";
-import { useNavigate } from "react-router-dom";
+import { selectUser } from "../store/user/selectors";
+
 
 export const TicketDetailPage: React.FC<{}> = () => {
 
     const dispatch = useAppDispatch()
     const ticketById = useAppSelector(selectTicketById)
+    const userLogin = useAppSelector(selectUser)
+     
 
      
     const navigate = useNavigate()
@@ -27,8 +29,8 @@ export const TicketDetailPage: React.FC<{}> = () => {
     const id = parseInt(params.id!)
     const comments = ticketById?.comments
 
-    const [firstNameReporter, setFirstNameReporter] = useState(ticketById?.reporter.firstName)
-    const [firstNameAssigned, setFirstNameAssigned] = useState(ticketById?.assigned.firstName)
+    const [firstNameReporter, setFirstNameReporter] = useState(ticketById?.assignedTo)
+    const [firstNameAssigned, setFirstNameAssigned] = useState(ticketById?.reportedBy)
     const [subject, setSubject] = useState(ticketById?.state)
     const [severity, setSeverity] = useState(ticketById?.severity)
     const [state, setState] = useState(ticketById?.state)
@@ -41,12 +43,13 @@ export const TicketDetailPage: React.FC<{}> = () => {
     }, [])
 
     useEffect(() => {
-        setFirstNameReporter(ticketById?.reporter.lastName)
-        setFirstNameAssigned(ticketById?.assigned.firstName)
+        setFirstNameReporter(ticketById?.reportedBy)
+        setFirstNameAssigned(ticketById?.assignedTo)
         setSubject(ticketById?.subject)
         setSeverity(ticketById?.severity)
         setState(ticketById?.state)
         setDescription(ticketById?.description)
+        
     }, [ticketById])
 
 
@@ -57,12 +60,11 @@ export const TicketDetailPage: React.FC<{}> = () => {
     }
 
     const addComment = (e: React.FormEvent<HTMLFormElement>) => {
-        
         e.preventDefault()
-        dispatch(createComment(id!, comment))
-       
-        
+        dispatch(createComment(id!, comment, userLogin?.user_id! ))
+        console.log(userLogin?.user_id! , "usuario logiado probando")
     }
+
     return (
         <div className="container">
 
@@ -125,8 +127,7 @@ export const TicketDetailPage: React.FC<{}> = () => {
                             </Card.Body>
                         </Card>
                     )
-                })
-                }
+                })}
 
                 <Form onSubmit={addComment}>
                     <textarea className="text-area" value={comment}  onChange={(e) => setComment(e.target.value)} ></textarea>

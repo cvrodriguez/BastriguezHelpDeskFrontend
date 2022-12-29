@@ -6,8 +6,8 @@ import {fetchTicketById} from '../../store/ticket/thunks'
 
 const apiUrl = 'http://localhost:4000'
 
-export const createComment = (id:number, comment:string): ThunkAction<void, RootState, unknown, AnyAction> => async dispatch =>{
-    const response = await axios.post(`${apiUrl}/tickets/${id}/comments`,{comment})
+export const createComment = (id:number, comment:string, userId:number): ThunkAction<void, RootState, unknown, AnyAction> => async dispatch =>{
+    const response = await axios.post(`${apiUrl}/tickets/${id}/comments`,{comment,userId})
     dispatch(fetchTicketById(id))
     
 }

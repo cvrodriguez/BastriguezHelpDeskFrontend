@@ -1,3 +1,4 @@
+
 import { createSlice } from "@reduxjs/toolkit";
 
 type User = {
@@ -7,8 +8,7 @@ type User = {
   picture: string,
   email: string,
   role: string,
-  state: boolean,
-  name: string
+  name: string,
 }
 
 interface UserState {
@@ -39,7 +39,15 @@ export const userSlice = createSlice({
     loginSuccess: (state, action) => {
       localStorage.setItem("token", action.payload.token);
       state.isAuthenticated = action.payload.isAuthenticated;
-      state.user = action.payload.user;
+      state.user = {
+          user_id: action.payload.user.sub,
+          given_name: action.payload.user.given_name,
+          family_name: action.payload.user.family_name,
+          picture: action.payload.user.picture,
+          email: action.payload.user.email,
+          role: action.payload.user.http,
+          name: action.payload.user.name,
+      };
       state.roles = action.payload.roles;
     },
     logOut: (state, action) => {
