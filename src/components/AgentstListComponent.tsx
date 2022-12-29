@@ -18,7 +18,7 @@ export const AgentstListComponent: React.FC<{}> = () => {
     const users = useAppSelector(selectUsersList)
     const user = useAppSelector(selectUserById)
 
-    const userDetail = (id:number) =>{
+    const userDetail = (id:string) =>{
         dispatch(fetchUserById(id))
     }
    

@@ -1,27 +1,30 @@
 import * as React from "react";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams,useNavigate } from "react-router-dom";
 
-
-import Form from 'react-bootstrap/Form';
 import '../style/createTicket.css'
-import { fetchTicketById, createTicket } from '../store/ticket/thunks'
-import { useAppDispatch } from '../hooks'
+import { Typeahead } from 'react-bootstrap-typeahead';
 import { InputApp } from "../style/InputApp";
 import { LabelApp } from '../style/LabelApp'
 import { ButtonApp } from '../style/ButtonApp'
+import Form from 'react-bootstrap/Form';
 
-import { useNavigate } from "react-router-dom";
+import { fetchTicketById, createTicket } from '../store/ticket/thunks'
+import { useAppDispatch, useAppSelector } from '../hooks'
+import { fetchUser } from "../store/user/thunks";
+import { selectUsersList } from "../store/user/selectors";
+import { User } from "../store/user/slice";
 
 export const CreateTicket: React.FC<{}> = () => {
 
     const dispatch = useAppDispatch()
     const params = useParams();
     const navigate = useNavigate()
+    const usersList = useAppSelector(selectUsersList)
     const id = parseInt(params.id!)
 
-    const [firstNameReporter, setFirstNameReporter] = useState(0)
-    const [firstNameAssigned, setFirstNameAssigned] = useState(0)
+    const [reporterName, setReporterName] = useState([] as User[])
+    const [assignedToName, setAssignedToName] = useState([] as User[])
     const [subject, setSubject] = useState('')
     const [severity, setSeverity] = useState('')
     const [state, setState] = useState('')
@@ -30,13 +33,14 @@ export const CreateTicket: React.FC<{}> = () => {
 
     useEffect(() => {
         dispatch(fetchTicketById(id))
+        dispatch(fetchUser())
     }, [])
 
 
     const submitCeateTicket = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-       await dispatch(createTicket(firstNameReporter, firstNameAssigned, subject!, severity!, state!, description!))
-       navigate("/tickets")
+        await dispatch(createTicket(reporterName[0].user_id, assignedToName[0].user_id, subject!, severity!, state!, description!))
+        navigate("/tickets")
     }
 
     return (
@@ -48,14 +52,26 @@ export const CreateTicket: React.FC<{}> = () => {
                 <div className="left-ticket-create">
                     <Form.Group className="mb-3">
                         <LabelApp>Report By</LabelApp>
-                        <InputApp type="number" placeholder="Enter name" value={firstNameReporter!}
-                            onChange={(e) => setFirstNameReporter(parseInt(e.target.value))} required />
+                        <Typeahead
+                            id="basic-typeahead-single"
+                            labelKey="name"
+                            onChange={(opts)=>setReporterName(opts as User[])}
+                            options={usersList }
+                            placeholder="Choose a state..."
+                            selected={reporterName}
+                        />
                     </Form.Group>
 
                     <Form.Group className="mb-3" >
                         <LabelApp>Assign To</LabelApp>
-                        <InputApp type="number" placeholder="Enter name" value={firstNameAssigned!}
-                            onChange={(e) => setFirstNameAssigned(parseInt(e.target.value))} />
+                        <Typeahead className="type-a-head"
+                           
+                            labelKey="name"
+                            onChange={(opts)=>setAssignedToName(opts as User[])}
+                            options={usersList }
+                            placeholder="Choose a state..."
+                            selected={assignedToName}
+                        />
                     </Form.Group>
 
 

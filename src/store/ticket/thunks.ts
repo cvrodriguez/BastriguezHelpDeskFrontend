@@ -22,7 +22,7 @@ export const UpdateTicketById = (id: number, subject: string, severity: string, 
   const response = await axios.patch(`${apiUrl}/tickets/${id}`, { subject, severity, state, description })
 }
 
-export const createTicket = (assignedTo: number, reportedBy: number, subject: string, severity: string, state: string, description: string): ThunkAction<void, RootState, unknown, AnyAction> => async dispatch => {
+export const createTicket = (assignedTo: string, reportedBy: string, subject: string, severity: string, state: string, description: string): ThunkAction<void, RootState, unknown, AnyAction> => async dispatch => {
   const response = await axios.post(`${apiUrl}/tickets`, { assignedTo, reportedBy, subject, severity, state, description })
 }
 
