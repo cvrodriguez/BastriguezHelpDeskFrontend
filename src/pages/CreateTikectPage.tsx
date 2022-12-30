@@ -11,7 +11,7 @@ import Form from 'react-bootstrap/Form';
 
 import { fetchTicketById, createTicket } from '../store/ticket/thunks'
 import { useAppDispatch, useAppSelector } from '../hooks'
-import { fetchUser } from "../store/user/thunks";
+import { fetchUsers } from "../store/user/thunks";
 import { selectUsersList } from "../store/user/selectors";
 import { User } from "../store/user/slice";
 
@@ -33,7 +33,7 @@ export const CreateTicket: React.FC<{}> = () => {
 
     useEffect(() => {
         dispatch(fetchTicketById(id))
-        dispatch(fetchUser())
+        dispatch(fetchUsers())
     }, [dispatch, id])
 
 

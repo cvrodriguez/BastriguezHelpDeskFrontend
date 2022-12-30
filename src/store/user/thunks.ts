@@ -6,7 +6,7 @@ import { userReporterByFetched, usersFetched, userAssignedFetched, userByIdFetch
 
 const apiUrl = 'http://localhost:4000'
 
-export const fetchUser = (): ThunkAction<void, RootState, unknown, AnyAction> => async dispatch => {
+export const fetchUsers = (): ThunkAction<void, RootState, unknown, AnyAction> => async dispatch => {
     try {
         const response = await axios.get(`${apiUrl}/users`)
         dispatch(usersFetched(response.data))

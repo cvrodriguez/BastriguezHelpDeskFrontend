@@ -3,7 +3,7 @@ import { useEffect } from "react";
 
 import { useAppDispatch, useAppSelector } from '../hooks'
 import {selectUserById, selectUsersList } from "../store/user/selectors";
-import { fetchUser, fetchUserById } from "../store/user/thunks";
+import { fetchUsers, fetchUserById } from "../store/user/thunks";
 
 import { BarButtosComponent } from "./BarButtosComponent";
 
@@ -23,7 +23,7 @@ export const AgentstListComponent: React.FC<{}> = () => {
     }
    
     useEffect(() => {
-        dispatch(fetchUser())
+        dispatch(fetchUsers())
     }, [dispatch])
     
     return (

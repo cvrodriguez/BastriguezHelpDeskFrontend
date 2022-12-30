@@ -1,7 +1,8 @@
 import * as React from "react";
 import { useEffect, useState } from "react";
-import { useParams , useNavigate} from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
+import { Typeahead } from 'react-bootstrap-typeahead';
 import Form from 'react-bootstrap/Form';
 import Card from 'react-bootstrap/Card';
 import { InputApp } from "../style/InputApp";
@@ -9,28 +10,29 @@ import { LabelApp } from '../style/LabelApp'
 import { ButtonApp } from '../style/ButtonApp'
 import '../style/detail.css'
 
+import { User } from "../store/user/slice";
 import { selectTicketById } from '../store/ticket/slectors'
 import { fetchTicketById, UpdateTicketById } from '../store/ticket/thunks'
 import { useAppSelector, useAppDispatch } from '../hooks'
 import { createComment } from "../store/comment/thunks";
-import { selectUser, selectUserAssingTo, selectUserReporterBy } from "../store/user/selectors";
-import { fetchUserAssignedToById, fetchUserReporterById } from "../store/user/thunks";
+import { selectUser, selectUsersList } from "../store/user/selectors";
+import { fetchUsers, fetchUserAssignedToById, fetchUserReporterById } from "../store/user/thunks";
 
 
 export const TicketDetailPage: React.FC<{}> = () => {
 
     const dispatch = useAppDispatch()
-    const ticketById = useAppSelector(selectTicketById)
-    const userLogin = useAppSelector(selectUser)
     const navigate = useNavigate()
     const params = useParams();
-    const id = parseInt(params.id!)
-    const comments = ticketById?.comments
-    const agent = useAppSelector(selectUserAssingTo)
-    const reporter =useAppSelector(selectUserReporterBy)
 
-    const [firstNameReporter, setFirstNameReporter] = useState("")
-    const [firstNameAssigned, setFirstNameAssigned] = useState("")
+    const id = parseInt(params.id!)
+    const userLogin = useAppSelector(selectUser)
+    const ticketById = useAppSelector(selectTicketById)
+    const usersList = useAppSelector(selectUsersList)
+    const comments = ticketById?.comments
+
+    const [nameReportedBy, setNameReportedBy] = useState([] as User[] )
+    const [nameAssignedTo, setNameAssignedTo] = useState([]as User[])
     const [subject, setSubject] = useState(ticketById?.state)
     const [severity, setSeverity] = useState(ticketById?.severity)
     const [state, setState] = useState(ticketById?.state)
@@ -40,16 +42,11 @@ export const TicketDetailPage: React.FC<{}> = () => {
 
     useEffect(() => {
         dispatch(fetchTicketById(id))
+        dispatch(fetchUsers())
     }, [dispatch, id])
 
     useEffect(() => {
-        setFirstNameAssigned(agent?.name!)
-        setFirstNameReporter(reporter?.name!)
-    }, [agent, reporter])
 
-
-    useEffect(() => {
-        
         setSubject(ticketById?.subject)
         setSeverity(ticketById?.severity)
         setState(ticketById?.state)
@@ -57,18 +54,23 @@ export const TicketDetailPage: React.FC<{}> = () => {
 
         dispatch(fetchUserAssignedToById(ticketById?.assignedTo!))
         dispatch(fetchUserReporterById(ticketById?.reportedBy!))
-        
+
     }, [dispatch, ticketById])
+
+    useEffect(() => {
+        setNameReportedBy(usersList.filter((u)=> u.user_id === ticketById?.reportedBy))
+        setNameAssignedTo(usersList.filter((u)=> u.user_id === ticketById?.assignedTo))
+    }, [ticketById?.assignedTo, ticketById?.reportedBy, usersList])
 
     const submitForm = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-      await  dispatch(UpdateTicketById(id, subject!, severity!, state!, description!))
-      navigate("/tickets")
+        await dispatch(UpdateTicketById(id, nameAssignedTo[0].user_id, nameReportedBy[0].user_id, subject!, severity!, state!, description!))
+        navigate("/tickets")
     }
 
     const addComment = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        dispatch(createComment(id!, comment, userLogin?.user_id! ))
+        dispatch(createComment(id!, comment, userLogin?.user_id!))
     }
 
     return (
@@ -78,12 +80,27 @@ export const TicketDetailPage: React.FC<{}> = () => {
                 <Form className="form-container" onSubmit={submitForm}>
                     <Form.Group className="mb-3">
                         <LabelApp>Report By</LabelApp>
-                        <InputApp readOnly type="text" placeholder="Enter name" value={firstNameReporter!} />
+                        <Typeahead
+                            id="basic-typeahead-single"
+                            labelKey="name"
+                            onChange={(opts)=>setNameReportedBy(opts as User[])}
+                            options={usersList}
+                            placeholder="Choose a user..."
+                            selected={nameReportedBy}
+                        />
                     </Form.Group>
 
                     <Form.Group className="mb-3" >
                         <LabelApp>Assign To</LabelApp>
-                        <InputApp readOnly type="text" placeholder="Enter name" value={firstNameAssigned} />
+                        <LabelApp>Report By</LabelApp>
+                        <Typeahead
+                            id="basic-typeahead-single"
+                            labelKey="name"
+                            onChange={(opts)=>setNameAssignedTo(opts as User[])}
+                            options={usersList}
+                            placeholder="Choose a user..."
+                            selected={nameAssignedTo}
+                        />
                     </Form.Group>
 
                     <Form.Group className="mb-3" >
@@ -136,7 +153,7 @@ export const TicketDetailPage: React.FC<{}> = () => {
                 })}
 
                 <Form onSubmit={addComment}>
-                    <textarea className="text-area" value={comment}  onChange={(e) => setComment(e.target.value)} ></textarea>
+                    <textarea className="text-area" value={comment} onChange={(e) => setComment(e.target.value)} required></textarea>
                     <ButtonApp type="submit" primary='true'>Add Comment</ButtonApp>
                 </Form>
 
