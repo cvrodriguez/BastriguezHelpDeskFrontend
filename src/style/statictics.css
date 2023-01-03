@@ -18,12 +18,12 @@
 
 .TiTicket {
     font-size: 40px;
-    color: #18778C;
+    color: white;
     margin-right: 10px;
     border-radius: 5px;
     padding: 5px;
-    background-color: #F8F9F9;
-    opacity: 0.4;
+    background-color: black;
+    opacity: 0.25;
     -webkit-box-shadow: 10px 10px 34px -5px rgba(255, 255, 255, 1);
     -moz-box-shadow: 10px 10px 34px -5px rgba(255, 255, 255, 1);
     box-shadow: 10px 10px 34px -5px rgba(255, 255, 255, 1);

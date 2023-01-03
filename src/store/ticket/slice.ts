@@ -11,7 +11,8 @@ type Ticket = {
     severity: string,
     assigned:User,
     reporter:User,
-    comments: Comment[] | null
+    comments: Comment[] | null,
+    createdAt: Date | null
 }
 
 type User = {
