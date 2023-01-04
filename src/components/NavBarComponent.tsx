@@ -25,10 +25,14 @@ const Container  = styled(Navbar)`
 {
     display: flex;
     justify-content: center;
+    
 }
 a{
     text-decoration: none;
     color: #A66B56;
+    margin-right:25px;
+    
+    
 }
 
 a:hover{

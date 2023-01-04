@@ -2,16 +2,18 @@ import React, { useEffect, useState } from 'react';
 
 import moment from 'moment';
 import { groupBy } from 'lodash';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
 import { useAppSelector } from "../hooks";
 import { selectTickets } from "../store/ticket/slectors";
+
+import '../style/lineChartPage.css'
 
 export const LineChartComponent: React.FC<{}> = () => {
 
     const tickets = useAppSelector(selectTickets)
     const [chartArrayByDay, setChartArrayByDay] = useState([] as Graph[])
-    
+
     type Graph = {
         name: string,
         amount: number,
@@ -19,7 +21,7 @@ export const LineChartComponent: React.FC<{}> = () => {
         medio: number,
         high: number
     }
-    
+
     const makeGraph = () => {
 
         if (tickets.length === 0) return
@@ -135,26 +137,36 @@ export const LineChartComponent: React.FC<{}> = () => {
     }, [tickets])
 
     return (
-        <LineChart className='rojo'
-            width={500}
-            height={300}
-            data={chartArrayByDay}
-            margin={{
-                top: 5,
-                right: 30,
-                left: 6,
-                bottom: 5,
-            }}
-        >
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" />
-            <YAxis />
-            <Tooltip />
-            <Legend verticalAlign="top" height={36} />
-            <Line type="monotone" dataKey="high" stroke="red" />
-            <Line type="monotone" dataKey="medio" stroke="orange" />
-            <Line type="monotone" dataKey="low" stroke="green" />
-        </LineChart>
+        <div className='line-chart-page'>
+            <div className='title'>
+            <h3 >Tickets Performance</h3>
+            </div>
+           
+            <ResponsiveContainer width={800} height="90%">
+                <LineChart className='rojo'
+                    width={600}
+                    height={250}
+                    data={chartArrayByDay}
+                    margin={{
+                        top: 25,
+                        right: 30,
+                        left: 40,
+                        bottom: 10,
+                    }}
+                >
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="name" />
+                    <YAxis />
+                    
+                    <Legend verticalAlign="top" height={40} />
+                    <Line type="monotone" dataKey="low" stroke="#133340" />
+                    <Line type="monotone" dataKey="medio" stroke="#18778C"/>
+                    <Line type="monotone" dataKey="high" stroke="#A66B56" />
+                    
+                    
+                </LineChart>
+            </ResponsiveContainer>
+        </div >
     )
 
 }

@@ -1,0 +1,21 @@
+.line-chart-page{
+    background-color: white;
+    width: 65%;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 10px;
+
+    -webkit-box-shadow: 10px 10px 36px 14px rgba(0,0,0,0.41);
+-moz-box-shadow: 10px 10px 36px 14px rgba(0,0,0,0.41);
+box-shadow: 10px 10px 36px 14px rgba(0,0,0,0.41);
+   
+}
+
+.title{
+    display: flex;
+    justify-content:first baseline;
+    margin-top: 35px;
+    margin-left: 80px;
+   
+}

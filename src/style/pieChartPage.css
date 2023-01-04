@@ -1,0 +1,33 @@
+.pie-chart-page {
+    background-color: white;
+    width: 25%;
+    border-radius: 20px;
+    padding-bottom: 10px;
+
+    -webkit-box-shadow: 10px 10px 36px 14px rgba(0,0,0,0.41);
+    -moz-box-shadow: 10px 10px 36px 14px rgba(0,0,0,0.41);
+    box-shadow: 10px 10px 36px 14px rgba(0,0,0,0.41);
+}
+
+.box {
+    display: flex;
+    flex-direction: row;
+    justify-content: first baseline;
+    margin-left: 40px;
+}
+.box-input{
+    border: 0;
+    width: 20px;
+    height: 20px;
+    background-color: #18778C;
+    margin: 5px;
+    border-radius: 5px;
+    margin-right: 15px;
+   
+}
+.box2{
+    background-color: #133340;
+}
+.box3{
+    background-color: #5BCCD9;
+}

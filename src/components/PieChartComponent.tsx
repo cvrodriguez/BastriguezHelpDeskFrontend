@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { PieChart, Pie, Cell } from 'recharts';
 import { groupBy } from 'lodash';
 
+import '../style/pieChartPage.css'
+
 import { useAppSelector } from '../hooks';
 import { selectTickets } from '../store/ticket/slectors';
 
@@ -15,7 +17,6 @@ export const PieChartComponent: React.FC<{}> = () => {
     const tickets = useAppSelector(selectTickets)
     const [pieArray, setPieArray] = useState([] as Graph[])
     const COLORS = ['#5BCCD9', '#18778C', '#133340', '#FF8042'];
-
 
     const makePie = () => {
         if (tickets.length === 0) return
@@ -41,19 +42,23 @@ export const PieChartComponent: React.FC<{}> = () => {
         ])
     }
 
-    useEffect(makePie, [makePie, tickets])
+    useEffect(() => {
+        makePie()
+    }, [tickets])
 
-    console.log(pieArray, "new array")
     return (
-        <div>
-            <PieChart width={800} height={400} >
+        <div className='pie-chart-page'>
+            <div className='title'>
+            <h3 >Tickets State</h3>
+            </div>
+            
+            <PieChart width={800} height={220} >
                 <Pie
                     data={pieArray}
-                    cx={180}
-                    cy={200}
+                    cx={160}
+                    cy={110}
                     innerRadius={60}
                     outerRadius={70}
-                    
                     paddingAngle={7}
                     dataKey="value"
 
@@ -64,6 +69,16 @@ export const PieChartComponent: React.FC<{}> = () => {
                 </Pie>
 
             </PieChart>
+            <div className='box'>
+            <input disabled className='box-input' ></input > <label>Pending</label>
+            </div>
+            <div className='box'>
+            <input disabled className='box-input box2' ></input > <label>Closed</label>
+            </div>
+            <div className='box'>
+            <input disabled className='box-input box3'  ></input > <label>Open</label>
+            </div>
+      
         </div>
     )
 }

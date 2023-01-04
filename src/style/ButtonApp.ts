@@ -12,7 +12,6 @@ export const ButtonApp = styled(Button) <ButtonProps>`
     color: #D7D7D9;
     background-color: ${(props) => (props.primary ? '#A66B56' : '#133340')};
     border: none;
-    border: 4px double #cccccc;
     cursor: pointer;
 }
 

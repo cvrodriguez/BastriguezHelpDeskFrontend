@@ -64,11 +64,13 @@ const StyledBanner = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 20vh;
+    height: 25vh;
     background-image: url('https://acegif.com/wp-content/uploads/gif/outerspace-53.gif');
     background-repeat: no-repeat;
     background-size: cover;
-   
+    -webkit-box-shadow: 10px 10px 36px 14px rgba(0,0,0,0.41);
+    -moz-box-shadow: 10px 10px 36px 14px rgba(0,0,0,0.41);
+    box-shadow: 10px 10px 36px 14px rgba(0,0,0,0.41);
     
 }
 

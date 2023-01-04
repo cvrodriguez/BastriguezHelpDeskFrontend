@@ -60,6 +60,7 @@ export const userSlice = createSlice({
     },
     usersFetched: (state, action) => {
       state.usersList = action.payload;
+      
     },
     userReporterByFetched:(state, action) =>{
       state.userReporterBy = action.payload
