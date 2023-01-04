@@ -1,8 +1,5 @@
-// import * as React from "react";
-import React, { PureComponent, useState } from 'react';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Cell } from 'recharts';
-
-import { useEffect } from "react";
+import React, { useEffect, useState } from 'react';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 
 import { useAppSelector, useAppDispatch } from '../hooks'
 import { selectSevenDaysAgoTickets, selectTickets, selectTotalTickets, selectTotalTicketsOpened } from "../store/ticket/slectors";
@@ -13,8 +10,7 @@ import { VscListOrdered } from "react-icons/vsc";
 import { BsBarChartFill } from "react-icons/bs";
 import moment from 'moment';
 import { groupBy } from 'lodash';
-import { type } from 'os';
-
+import { PieChartComponent } from './PieChartComponent';
 
 type Graph = {
     name: string,
@@ -22,11 +18,7 @@ type Graph = {
     low:number,
     medio:number,
     high:number
-    
-
 }
-
-
 
 export const StatisticsComponent: React.FC<{}> = () => {
 
@@ -85,7 +77,7 @@ export const StatisticsComponent: React.FC<{}> = () => {
             if(m.severity === 'Medio') return 'Medio'
             if(m.severity === 'High') return 'High'
         })
-        console.log(saturday, 'mondy')
+       
         const sunday = groupBy(ticketsByDay['Sunday'], (m)=>{
             if(m.severity === 'Low') return 'Low'
             if(m.severity === 'Medio') return 'Medio'
@@ -190,7 +182,7 @@ export const StatisticsComponent: React.FC<{}> = () => {
 
 
 
-            <div>
+            <div className='graph'>
 
                 <LineChart className='rojo'
                     width={500}
@@ -212,8 +204,10 @@ export const StatisticsComponent: React.FC<{}> = () => {
                     <Line type="monotone" dataKey="medio" stroke="orange" />
                     <Line type="monotone" dataKey="low" stroke="green"   />
                 </LineChart>
-
+                <PieChartComponent/>
             </div>
+
+           
 
 
         </div >
