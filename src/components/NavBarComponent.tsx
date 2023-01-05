@@ -25,6 +25,7 @@ const Container  = styled(Navbar)`
 {
     display: flex;
     justify-content: center;
+    height:30px
     
 }
 a{
@@ -32,11 +33,10 @@ a{
     color: #A66B56;
     margin-right:25px;
     
-    
 }
 
 a:hover{
-    
+    font-size:23px;
     color: #133340;
 }
 `
