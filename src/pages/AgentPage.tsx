@@ -5,7 +5,7 @@ import { useAppDispatch, useAppSelector } from '../hooks'
 import {selectUserById, selectUsersList } from "../store/user/selectors";
 import { fetchUsers, fetchUserById } from "../store/user/thunks";
 
-import { BarButtosComponent } from "./BarButtosComponent";
+import { BarButtosComponent } from "../components/BarButtosComponent";
 
 import styled from "styled-components";
 import Table from 'react-bootstrap/Table';

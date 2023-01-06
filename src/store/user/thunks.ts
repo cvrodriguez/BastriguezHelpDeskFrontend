@@ -29,3 +29,14 @@ export const fetchUserById = (id: string): ThunkAction<void, RootState, unknown,
     const response = await axios.get(`${apiUrl}/users/${id}`)
     dispatch(userByIdFetched(response.data))
 }
+
+export const CreateUser = (email: string, password: string, name: string, given_name: string, family_name: string, nickname: string, picture: string,):
+    ThunkAction<void, RootState, unknown, AnyAction> => async dispatch => {
+        try {
+            await axios.post(`${apiUrl}/users`, { email, password, name, given_name, family_name, nickname, picture })
+
+        } catch (error) {
+            console.log(error)
+        }
+    }
+

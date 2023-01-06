@@ -2,23 +2,35 @@ import * as React from "react";
 import { FiPlus } from "react-icons/fi";
 import { ButtonApp } from "../style/ButtonApp";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 
 export const BarButtosComponent: React.FC<{}> = () => {
     
+    const location = useLocation();
     const navigate = useNavigate()
-    const goToCreateTicket = ()=>{
+    
+    const goToCreateTicket = () => {
         navigate("/createTicket")
     }
-    return(
+
+    const goToCreateuser = () => {
+        navigate("/createUser")
+    }
+    
+
+    return (
         <StyleButtonsBar >
             <div>
-                <ButtonApp onClick={goToCreateTicket}  primary> <FiPlus/>Add Ticket</ButtonApp>
+                {(location.pathname === '/tickets' || location.pathname === '/') 
+                   && <ButtonApp onClick={goToCreateTicket} primary> <FiPlus />Add Ticket</ButtonApp> }
+
+                {location.pathname === '/agents' 
+                    && <ButtonApp onClick={goToCreateuser} primary> <FiPlus />Add user</ButtonApp>}
             </div>
             <div className="main-bar-buttons-right">
-            <ButtonApp > <FiPlus/>Export Data</ButtonApp>
-            <ButtonApp > <FiPlus/>Sort By</ButtonApp>
+                <ButtonApp > <FiPlus />Export Data</ButtonApp>
+                <ButtonApp > <FiPlus />Sort By</ButtonApp>
             </div>
         </StyleButtonsBar>
     )

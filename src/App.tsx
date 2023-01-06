@@ -7,9 +7,9 @@ import { Routes, Route, } from 'react-router-dom'
 import './App.css';
 import {
   BannerComponent, SideBarComponent, StatisticsComponent,
-  TickestListComponent, AgentstListComponent, UserCreate
+  TickestListComponent, AgentstListComponent
 } from './components';
-import { HomePage, MainPage, TicketDetailPage } from './pages'
+import { CreateUserPage, HomePage, MainPage, TicketDetailPage } from './pages'
 import { loginSuccess } from './store/user/slice';
 import { useAppDispatch } from './hooks';
 import { CreateTicket } from './pages/CreateTikectPage';
@@ -55,20 +55,17 @@ function App() {
 
           <Routes >
            
-            <Route path='/main' element={<MainPage></MainPage>}>
-              <Route path='createUser' element={<UserCreate />} />
-              <Route index element={<UserCreate />} />
-            </Route>
-
             <Route path='/' element={<HomePage></HomePage>}>
               <Route path='statistics' element={<StatisticsComponent />} />
               <Route index element={<TickestListComponent />} />
               <Route path='tickets' element={<TickestListComponent />} />
               <Route path='agents' element={<AgentstListComponent />} />
             </Route>
-
+            
+            <Route path='/main' element={<MainPage></MainPage>}> </Route>
             <Route path='/ticket_detail/:id' element={<TicketDetailPage />}></Route>
             <Route path='/createTicket' element={<CreateTicket />}></Route>
+            <Route path='/createUser' element={<CreateUserPage />}></Route>
 
           </Routes>
         </div>
