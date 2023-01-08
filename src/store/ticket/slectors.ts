@@ -10,4 +10,6 @@ export const selectSevenDaysAgoTickets = (state: RootState) => {
    return state.tickets.ticketList.filter((t) =>  moment(t.createdAt).diff(moment().startOf('week'), 'days')>= 1) 
     
 }
+export const selectFilterTicketsList = (state: RootState) => state.tickets.TicketsFilterList
+
 // state.tickets.ticketList.map((t)=> moment(t.createdAt).fromNow())

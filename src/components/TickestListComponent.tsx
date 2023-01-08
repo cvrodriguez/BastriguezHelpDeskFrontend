@@ -1,38 +1,42 @@
 import * as React from "react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import { useAppSelector, useAppDispatch } from '../hooks'
-import { selectTickets, selectTicketById } from '../store/ticket/slectors'
-import { fetchTicketById, fetchTickets } from '../store/ticket/thunks'
+import { selectTicketById, selectFilterTicketsList } from '../store/ticket/slectors'
+import { fetchTicketById, FetchTicketsByFilters as fetchTicketsByFilters } from '../store/ticket/thunks'
 import { BarButtosComponent } from "./BarButtosComponent";
 
 import Card from 'react-bootstrap/Card';
 import Table from 'react-bootstrap/Table';
+import Form from 'react-bootstrap/Form';
 import Image from "react-bootstrap/Image";
 import styled from "styled-components";
 import { LinkApp } from "../style/LinkApp";
-import { fetchUserAssignedToById} from "../store/user/thunks";
+import { fetchUserAssignedToById } from "../store/user/thunks";
 import { selectUserAssingTo } from "../store/user/selectors";
 
 
 export const TickestListComponent: React.FC<{}> = () => {
 
-    const tickets = useAppSelector(selectTickets)
+    const tickestfilte = useAppSelector(selectFilterTicketsList)
     const ticketById = useAppSelector(selectTicketById)
     const agent = useAppSelector(selectUserAssingTo)
     const dispatch = useAppDispatch()
+
+    const [state, setState] = useState('')
+    const [severity, setSeverity] = useState('')
 
     const ticketDetail = (id: number) => {
         dispatch(fetchTicketById(id))
     }
 
     useEffect(() => {
-        dispatch(fetchTickets())
-    }, [dispatch])
-
-    useEffect(() => {
         dispatch(fetchUserAssignedToById(ticketById?.assignedTo!))
     }, [ticketById, dispatch])
+
+    useEffect(() => {
+        dispatch(fetchTicketsByFilters(severity, state))
+    }, [state, severity, dispatch])
 
     return (
 
@@ -44,12 +48,28 @@ export const TickestListComponent: React.FC<{}> = () => {
                     <thead>
                         <tr>
                             <th>Name</th>
-                            <th>Severity</th>
-                            <th>State</th>
+                            <th>
+                            <Form.Select aria-label="Default select example" style={{fontWeight: 'bold', fontFamily:'16px', border: 0, color:'#212529'}}
+                                onChange={(e) => setSeverity(e.target.value)} className="select" value={severity} >
+                                    <option value={''}>Severity...</option>
+                                    <option value="Low">Low</option>
+                                    <option value="Medio">Medio</option>
+                                    <option value="High">High</option>
+                                </Form.Select>
+                            </th>
+                            <th>
+                                <Form.Select aria-label="Default select example" style={{fontWeight: 'bold', fontFamily:'16px', border: 0, color:'#212529'}}
+                                onChange={(e) => setState(e.target.value)} className="select" value={state} >
+                                    <option value={''}>State...</option>
+                                    <option value="Open">Open</option>
+                                    <option value="Pending">Pending</option>
+                                    <option value="Closed">Closed</option>
+                                </Form.Select>
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
-                        {tickets.map((t) => {
+                        {tickestfilte.map((t) => {
                             return (
                                 <tr key={t.id} onClick={() => ticketDetail(t.id)}>
                                     <td>{t.subject}</td>
@@ -62,36 +82,36 @@ export const TickestListComponent: React.FC<{}> = () => {
 
                 </TableContainer>
 
-                    {ticketById ?
-                        <StyleCard>
-                            <StyleCardHeader>
-                                <ImagePefil  alt="" src={agent?.picture} roundedCircle ></ImagePefil>
-                                {agent == null ? 'loading...':agent?.name}</StyleCardHeader>
-                            <StyleCardBody className="card-body">
-                                <Card.Title></Card.Title>
-                                <Card.Text>
-                                    {ticketById.description}
-                                </Card.Text>
-                                <LinkApp  to={`/ticket_detail/${ticketById.id}`}>Detail</LinkApp>
-                            </StyleCardBody>
-                            <Card.Footer className="text-muted">2 days ago</Card.Footer>
-                        </StyleCard>
-                        :
-                        <StyleCard className="text-center">
-                            <StyleCardHeader>
-                                <ImagePefil  alt="" src="https://images.unsplash.com/photo-1569931727762-93dd90109ecd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fHBlcmZpbHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60" roundedCircle ></ImagePefil>Report By User
-                            </StyleCardHeader>
-                            <StyleCardBody>
-                                <Card.Title>Subject</Card.Title>
-                                <Card.Text>
-                                    Description
-                                </Card.Text>
-                            </StyleCardBody>
-                            <Card.Footer className="text-muted">2 days ago</Card.Footer>
-                        </StyleCard>
-                    }
-                </Container>
-            </div>
+                {ticketById ?
+                    <StyleCard>
+                        <StyleCardHeader>
+                            <ImagePefil alt="" src={agent?.picture} roundedCircle ></ImagePefil>
+                            {agent == null ? 'loading...' : agent?.name}</StyleCardHeader>
+                        <StyleCardBody className="card-body">
+                            <Card.Title></Card.Title>
+                            <Card.Text>
+                                {ticketById.description}
+                            </Card.Text>
+                            <LinkApp to={`/ticket_detail/${ticketById.id}`}>Detail</LinkApp>
+                        </StyleCardBody>
+                        <Card.Footer className="text-muted">2 days ago</Card.Footer>
+                    </StyleCard>
+                    :
+                    <StyleCard className="text-center">
+                        <StyleCardHeader>
+                            <ImagePefil alt="" src="https://images.unsplash.com/photo-1569931727762-93dd90109ecd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fHBlcmZpbHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60" roundedCircle ></ImagePefil>Report By User
+                        </StyleCardHeader>
+                        <StyleCardBody>
+                            <Card.Title>Subject</Card.Title>
+                            <Card.Text>
+                                Description
+                            </Card.Text>
+                        </StyleCardBody>
+                        <Card.Footer className="text-muted">2 days ago</Card.Footer>
+                    </StyleCard>
+                }
+            </Container>
+        </div>
     )
 }
 

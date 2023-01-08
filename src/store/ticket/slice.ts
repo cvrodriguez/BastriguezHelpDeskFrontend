@@ -32,14 +32,14 @@ type Comment = {
 
 interface TicketsState {
     ticketList: Ticket[],
-    ticketDetail: Ticket | null 
+    ticketDetail: Ticket | null,
+   TicketsFilterList: Ticket[]
 }
-
-
 
 const initialState: TicketsState = {
     ticketList: [],
-    ticketDetail: null
+    ticketDetail: null,
+    TicketsFilterList:[]
 }
 
 export const ticketSlice = createSlice({
@@ -52,10 +52,13 @@ export const ticketSlice = createSlice({
         },
         ticketByIdFetched: (state, action) => {
             state.ticketDetail = action.payload
+        },
+        filteringTicketsList:(state, action)=>{
+            state.TicketsFilterList= action.payload
         }
 
     }
 })
 
-export const { ticketsFetched, ticketByIdFetched } = ticketSlice.actions
+export const { ticketsFetched, ticketByIdFetched,filteringTicketsList } = ticketSlice.actions
 export default ticketSlice.reducer
