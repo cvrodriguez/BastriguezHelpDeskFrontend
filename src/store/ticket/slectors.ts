@@ -12,4 +12,4 @@ export const selectSevenDaysAgoTickets = (state: RootState) => {
 }
 export const selectFilterTicketsList = (state: RootState) => state.tickets.TicketsFilterList
 
-// state.tickets.ticketList.map((t)=> moment(t.createdAt).fromNow())
+ 

@@ -1,9 +1,14 @@
 import * as React from "react";
 import { useEffect, useState } from "react";
 
+import moment from 'moment';
+
 import { useAppSelector, useAppDispatch } from '../hooks'
 import { selectTicketById, selectFilterTicketsList } from '../store/ticket/slectors'
 import { fetchTicketById, FetchTicketsByFilters as fetchTicketsByFilters } from '../store/ticket/thunks'
+import { fetchUserAssignedToById, fetchUserReporterById } from "../store/user/thunks";
+import { selectUserAssingTo, selectUserReporterBy } from "../store/user/selectors";
+
 import { BarButtosComponent } from "./BarButtosComponent";
 
 import Card from 'react-bootstrap/Card';
@@ -12,8 +17,7 @@ import Form from 'react-bootstrap/Form';
 import Image from "react-bootstrap/Image";
 import styled from "styled-components";
 import { LinkApp } from "../style/LinkApp";
-import { fetchUserAssignedToById } from "../store/user/thunks";
-import { selectUserAssingTo } from "../store/user/selectors";
+import { LabelApp } from "../style/LabelApp";
 
 
 export const TickestListComponent: React.FC<{}> = () => {
@@ -21,6 +25,7 @@ export const TickestListComponent: React.FC<{}> = () => {
     const tickestfilte = useAppSelector(selectFilterTicketsList)
     const ticketById = useAppSelector(selectTicketById)
     const agent = useAppSelector(selectUserAssingTo)
+    const reporter = useAppSelector(selectUserReporterBy)
     const dispatch = useAppDispatch()
 
     const [state, setState] = useState('')
@@ -32,6 +37,7 @@ export const TickestListComponent: React.FC<{}> = () => {
 
     useEffect(() => {
         dispatch(fetchUserAssignedToById(ticketById?.assignedTo!))
+        dispatch(fetchUserReporterById(ticketById?.reportedBy!))
     }, [ticketById, dispatch])
 
     useEffect(() => {
@@ -39,7 +45,6 @@ export const TickestListComponent: React.FC<{}> = () => {
     }, [state, severity, dispatch])
 
     return (
-
         <div>
             <BarButtosComponent></BarButtosComponent>
 
@@ -49,8 +54,8 @@ export const TickestListComponent: React.FC<{}> = () => {
                         <tr>
                             <th>Name</th>
                             <th>
-                            <Form.Select aria-label="Default select example" style={{fontWeight: 'bold', fontFamily:'16px', border: 0, color:'#212529'}}
-                                onChange={(e) => setSeverity(e.target.value)} className="select" value={severity} >
+                                <Form.Select aria-label="Default select example" style={{ fontWeight: 'bold', fontFamily: '16px', border: 0, color: '#212529' }}
+                                    onChange={(e) => setSeverity(e.target.value)} className="select" value={severity} >
                                     <option value={''}>Severity...</option>
                                     <option value="Low">Low</option>
                                     <option value="Medio">Medio</option>
@@ -58,8 +63,8 @@ export const TickestListComponent: React.FC<{}> = () => {
                                 </Form.Select>
                             </th>
                             <th>
-                                <Form.Select aria-label="Default select example" style={{fontWeight: 'bold', fontFamily:'16px', border: 0, color:'#212529'}}
-                                onChange={(e) => setState(e.target.value)} className="select" value={state} >
+                                <Form.Select aria-label="Default select example" style={{ fontWeight: 'bold', fontFamily: '16px', border: 0, color: '#212529' }}
+                                    onChange={(e) => setState(e.target.value)} className="select" value={state} >
                                     <option value={''}>State...</option>
                                     <option value="Open">Open</option>
                                     <option value="Pending">Pending</option>
@@ -86,28 +91,32 @@ export const TickestListComponent: React.FC<{}> = () => {
                     <StyleCard>
                         <StyleCardHeader>
                             <ImagePefil alt="" src={agent?.picture} roundedCircle ></ImagePefil>
+                            <LabelApp>Agent:</LabelApp>
                             {agent == null ? 'loading...' : agent?.name}</StyleCardHeader>
-                        <StyleCardBody className="card-body">
-                            <Card.Title></Card.Title>
-                            <Card.Text>
-                                {ticketById.description}
-                            </Card.Text>
+                        <StyleCardBody className="card-body mt-3 ">
+                            <span>Reporter</span>
+                            <Card.Subtitle className="mb-2 text-muted">{reporter === null ? 'Loading...' : reporter.name}</Card.Subtitle>
+                            <span>Subject</span>
+                            <Card.Subtitle className="mb-2 text-muted">{ticketById.subject}</Card.Subtitle>
+                            <Card.Title className="mt-3 mb-3 ">{ticketById.description}</Card.Title>
                             <LinkApp to={`/ticket_detail/${ticketById.id}`}>Detail</LinkApp>
                         </StyleCardBody>
-                        <Card.Footer className="text-muted">2 days ago</Card.Footer>
+                        <Card.Footer className="text-muted">{moment(ticketById.createdAt).fromNow()}</Card.Footer>
                     </StyleCard>
                     :
                     <StyleCard className="text-center">
                         <StyleCardHeader>
-                            <ImagePefil alt="" src="https://images.unsplash.com/photo-1569931727762-93dd90109ecd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fHBlcmZpbHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60" roundedCircle ></ImagePefil>Report By User
+                            <ImagePefil alt="" src="https://secure.gravatar.com/avatar/15626c5e0c749cb912f9d1ad48dba440?s=480&r=pg&d=https%3A%2F%2Fssl.gstatic.com%2Fs2%2Fprofiles%2Fimages%2Fsilhouette80.png" roundedCircle ></ImagePefil>
+                            <LabelApp>Agent:</LabelApp>
                         </StyleCardHeader>
                         <StyleCardBody>
-                            <Card.Title>Subject</Card.Title>
-                            <Card.Text>
-                                Description
-                            </Card.Text>
+                        <span>Reporter</span>
+                        <Card.Subtitle className="mb-2 text-muted"></Card.Subtitle>
+                        <span>Subject</span>
+                        <Card.Subtitle className="mb-2 text-muted"></Card.Subtitle>
+                            
                         </StyleCardBody>
-                        <Card.Footer className="text-muted">2 days ago</Card.Footer>
+                        <Card.Footer className="text-muted"> Days ago</Card.Footer>
                     </StyleCard>
                 }
             </Container>
