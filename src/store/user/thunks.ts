@@ -4,7 +4,7 @@ import { RootState } from '../../store'
 import { ThunkAction } from 'redux-thunk'
 import { userReporterByFetched, usersFetched, userAssignedFetched, userByIdFetched } from './slice'
 
-const apiUrl = 'http://localhost:4000'
+const apiUrl = process.env.REACT_APP_API_ENV
 
 export const fetchUsers = (): ThunkAction<void, RootState, unknown, AnyAction> => async dispatch => {
     try {

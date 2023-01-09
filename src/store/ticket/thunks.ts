@@ -4,7 +4,7 @@ import { RootState } from '../../store'
 import { ThunkAction } from 'redux-thunk'
 import { ticketsFetched, ticketByIdFetched, filteringTicketsList } from '../ticket/slice'
 
-const apiUrl = 'http://localhost:4000'
+const apiUrl = process.env.REACT_APP_API_ENV
 
 export const fetchTickets = (): ThunkAction<void, RootState, unknown, AnyAction> => async dispatch => {
   const response = await axios.get(`${apiUrl}/tickets`)
