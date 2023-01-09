@@ -5,13 +5,14 @@ import { groupBy } from 'lodash';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Legend, ResponsiveContainer } from 'recharts';
 
 import { useAppSelector } from "../hooks";
-import { selectTickets } from "../store/ticket/slectors";
+import { selectSevenDaysAgoTickets } from "../store/ticket/slectors";
 
 import '../style/lineChartPage.css'
 
 export const LineChartComponent: React.FC<{}> = () => {
 
-    const tickets = useAppSelector(selectTickets)
+    const tickets = useAppSelector(selectSevenDaysAgoTickets)
+   
     const [chartArrayByDay, setChartArrayByDay] = useState([] as Graph[])
 
     type Graph = {
@@ -37,13 +38,13 @@ export const LineChartComponent: React.FC<{}> = () => {
             if (moment(t.createdAt).day() === 0) return 'Sunday';
 
         });
-        const tuesday = groupBy(ticketsByDay['Monday'], (m) => {
+        const monday  = groupBy(ticketsByDay['Monday'], (m) => {
             if (m.severity === 'Low') return 'Low'
             if (m.severity === 'Medio') return 'Medio'
             if (m.severity === 'High') return 'High'
         })
 
-        const monday = groupBy(ticketsByDay['Tuesday'], (m) => {
+        const tuesday = groupBy(ticketsByDay['Tuesday'], (m) => {
             if (m.severity === 'Low') return 'Low'
             if (m.severity === 'Medio') return 'Medio'
             if (m.severity === 'High') return 'High'
@@ -95,35 +96,35 @@ export const LineChartComponent: React.FC<{}> = () => {
             },
             {
                 name: 'Wed',
-                amount: ticketsByDay['Wednesday'].length,
+                amount: ticketsByDay['Wednesday'] ?ticketsByDay['Wednesday'].length : 0,
                 low: wednesday['Low'] ? wednesday['Low'].length : 0,
                 medio: wednesday['Medio'] ? wednesday['Medio'].length : 0,
                 high: wednesday['High'] ? wednesday['High'].length : 0
             },
             {
                 name: 'Thu',
-                amount: ticketsByDay['Thursday'].length,
+                amount: ticketsByDay['Thursday']? ticketsByDay['Thursday'].length:0,
                 low: thursday['Low'] ? thursday['Low'].length : 0,
                 medio: thursday['Medio'] ? thursday['Medio'].length : 0,
                 high: thursday['High'] ? thursday['High'].length : 0
             },
             {
                 name: 'Fri',
-                amount: ticketsByDay['Friday'].length,
+                amount: ticketsByDay['Friday']? ticketsByDay['Friday'].length:0,
                 low: friday['Low'] ? friday['Low'].length : 0,
                 medio: friday['Medio'] ? friday['Medio'].length : 0,
                 high: friday['High'] ? friday['High'].length : 0
             },
             {
                 name: 'Sat',
-                amount: ticketsByDay['Saturday'].length,
+                amount: ticketsByDay['Saturday']? ticketsByDay['Saturday'].length: 0,
                 low: saturday['Low'] ? saturday['Low'].length : 0,
                 medio: saturday['Medio'] ? saturday['Medio'].length : 0,
                 high: saturday['High'] ? saturday['High'].length : 0
             },
             {
                 name: 'Sun',
-                amount: ticketsByDay['Sunday'].length,
+                amount: ticketsByDay['Sunday']?ticketsByDay['Sunday'].length:0,
                 low: sunday['Low'] ? sunday['Low'].length : 0,
                 medio: sunday['Medio'] ? sunday['Medio'].length : 0,
                 high: sunday['High'] ? sunday['High'].length : 0
@@ -132,9 +133,11 @@ export const LineChartComponent: React.FC<{}> = () => {
     }
 
     useEffect(() => {
-        makeGraph()
+        makeGraph()    
 
     }, [tickets])
+
+    
 
     return (
         <div className='line-chart-page'>
