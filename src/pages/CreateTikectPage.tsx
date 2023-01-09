@@ -80,7 +80,7 @@ export const CreateTicket: React.FC<{}> = () => {
                         <Form.Select aria-label="Default select example" className="select" value={severity!}
                             onChange={(e) => setSeverity(e.target.value)}>
                             <option value={undefined}>Select</option>
-                            <option value="Medio">Medio</option>
+                            <option value="Medium">Medium</option>
                             <option value="Low">Low</option>
                             <option value="High">High</option>
                         </Form.Select>

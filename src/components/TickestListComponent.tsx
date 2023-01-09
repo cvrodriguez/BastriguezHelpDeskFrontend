@@ -58,7 +58,7 @@ export const TickestListComponent: React.FC<{}> = () => {
                                     onChange={(e) => setSeverity(e.target.value)} className="select" value={severity} >
                                     <option value={''}>Severity...</option>
                                     <option value="Low">Low</option>
-                                    <option value="Medio">Medio</option>
+                                    <option value="Medium">Medium</option>
                                     <option value="High">High</option>
                                 </Form.Select>
                             </th>

@@ -19,7 +19,7 @@ export const LineChartComponent: React.FC<{}> = () => {
         name: string,
         amount: number,
         low: number,
-        medio: number,
+        medium: number,
         high: number
     }
 
@@ -40,41 +40,41 @@ export const LineChartComponent: React.FC<{}> = () => {
         });
         const monday  = groupBy(ticketsByDay['Monday'], (m) => {
             if (m.severity === 'Low') return 'Low'
-            if (m.severity === 'Medio') return 'Medio'
+            if (m.severity === 'Medium') return 'Medium'
             if (m.severity === 'High') return 'High'
         })
 
         const tuesday = groupBy(ticketsByDay['Tuesday'], (m) => {
             if (m.severity === 'Low') return 'Low'
-            if (m.severity === 'Medio') return 'Medio'
+            if (m.severity === 'Medium') return 'Medium'
             if (m.severity === 'High') return 'High'
         })
 
         const wednesday = groupBy(ticketsByDay['Wednesday'], (m) => {
             if (m.severity === 'Low') return 'Low'
-            if (m.severity === 'Medio') return 'Medio'
+            if (m.severity === 'Medium') return 'Medium'
             if (m.severity === 'High') return 'High'
         })
         const thursday = groupBy(ticketsByDay['Thursday'], (m) => {
             if (m.severity === 'Low') return 'Low'
-            if (m.severity === 'Medio') return 'Medio'
+            if (m.severity === 'Medium') return 'Medium'
             if (m.severity === 'High') return 'High'
         })
 
         const friday = groupBy(ticketsByDay['Friday'], (m) => {
             if (m.severity === 'Low') return 'Low'
-            if (m.severity === 'Medio') return 'Medio'
+            if (m.severity === 'Medium') return 'Medium'
             if (m.severity === 'High') return 'High'
         })
         const saturday = groupBy(ticketsByDay['Saturday'], (m) => {
             if (m.severity === 'Low') return 'Low'
-            if (m.severity === 'Medio') return 'Medio'
+            if (m.severity === 'Medium') return 'Medium'
             if (m.severity === 'High') return 'High'
         })
 
         const sunday = groupBy(ticketsByDay['Sunday'], (m) => {
             if (m.severity === 'Low') return 'Low'
-            if (m.severity === 'Medio') return 'Medio'
+            if (m.severity === 'Medium') return 'Medium'
             if (m.severity === 'High') return 'High'
         })
 
@@ -83,7 +83,7 @@ export const LineChartComponent: React.FC<{}> = () => {
                 name: 'Mon',
                 amount: ticketsByDay['Monday'].length,
                 low: monday['Low'] ? monday['Low'].length : 0,
-                medio: monday['Medio'] ? monday['Medio'].length : 0,
+                medium: monday['Medium'] ? monday['Medium'].length : 0,
                 high: monday['High'] ? monday['High'].length : 0
 
             },
@@ -91,42 +91,42 @@ export const LineChartComponent: React.FC<{}> = () => {
                 name: 'Tue',
                 amount: ticketsByDay['Tuesday'] ? ticketsByDay['Tuesday'].length : 0,
                 low: tuesday['Low'] ? tuesday['Low'].length : 0,
-                medio: tuesday['Medio'] ? tuesday['Medio'].length : 0,
+                medium: tuesday['Medium'] ? tuesday['Medium'].length : 0,
                 high: tuesday['High'] ? tuesday['High'].length : 0
             },
             {
                 name: 'Wed',
                 amount: ticketsByDay['Wednesday'] ?ticketsByDay['Wednesday'].length : 0,
                 low: wednesday['Low'] ? wednesday['Low'].length : 0,
-                medio: wednesday['Medio'] ? wednesday['Medio'].length : 0,
+                medium: wednesday['Medium'] ? wednesday['Medium'].length : 0,
                 high: wednesday['High'] ? wednesday['High'].length : 0
             },
             {
                 name: 'Thu',
                 amount: ticketsByDay['Thursday']? ticketsByDay['Thursday'].length:0,
                 low: thursday['Low'] ? thursday['Low'].length : 0,
-                medio: thursday['Medio'] ? thursday['Medio'].length : 0,
+                medium: thursday['Medium'] ? thursday['Medium'].length : 0,
                 high: thursday['High'] ? thursday['High'].length : 0
             },
             {
                 name: 'Fri',
                 amount: ticketsByDay['Friday']? ticketsByDay['Friday'].length:0,
                 low: friday['Low'] ? friday['Low'].length : 0,
-                medio: friday['Medio'] ? friday['Medio'].length : 0,
+                medium: friday['Medium'] ? friday['Medium'].length : 0,
                 high: friday['High'] ? friday['High'].length : 0
             },
             {
                 name: 'Sat',
                 amount: ticketsByDay['Saturday']? ticketsByDay['Saturday'].length: 0,
                 low: saturday['Low'] ? saturday['Low'].length : 0,
-                medio: saturday['Medio'] ? saturday['Medio'].length : 0,
+                medium: saturday['Medium'] ? saturday['Medium'].length : 0,
                 high: saturday['High'] ? saturday['High'].length : 0
             },
             {
                 name: 'Sun',
                 amount: ticketsByDay['Sunday']?ticketsByDay['Sunday'].length:0,
                 low: sunday['Low'] ? sunday['Low'].length : 0,
-                medio: sunday['Medio'] ? sunday['Medio'].length : 0,
+                medium: sunday['Medium'] ? sunday['Medium'].length : 0,
                 high: sunday['High'] ? sunday['High'].length : 0
             }
         ])
@@ -163,7 +163,7 @@ export const LineChartComponent: React.FC<{}> = () => {
                     
                     <Legend verticalAlign="top" height={40} />
                     <Line type="monotone" dataKey="low" stroke="#133340" />
-                    <Line type="monotone" dataKey="medio" stroke="#18778C"/>
+                    <Line type="monotone" dataKey="medium" stroke="#18778C"/>
                     <Line type="monotone" dataKey="high" stroke="#A66B56" />
                     
                     
