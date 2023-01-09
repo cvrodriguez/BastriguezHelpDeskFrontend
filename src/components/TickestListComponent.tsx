@@ -104,20 +104,7 @@ export const TickestListComponent: React.FC<{}> = () => {
                         <Card.Footer className="text-muted">{moment(ticketById.createdAt).fromNow()}</Card.Footer>
                     </StyleCard>
                     :
-                    <StyleCard className="text-center">
-                        <StyleCardHeader>
-                            <ImagePefil alt="" src="https://secure.gravatar.com/avatar/15626c5e0c749cb912f9d1ad48dba440?s=480&r=pg&d=https%3A%2F%2Fssl.gstatic.com%2Fs2%2Fprofiles%2Fimages%2Fsilhouette80.png" roundedCircle ></ImagePefil>
-                            <LabelApp>Agent:</LabelApp>
-                        </StyleCardHeader>
-                        <StyleCardBody>
-                        <span>Reporter</span>
-                        <Card.Subtitle className="mb-2 text-muted"></Card.Subtitle>
-                        <span>Subject</span>
-                        <Card.Subtitle className="mb-2 text-muted"></Card.Subtitle>
-                            
-                        </StyleCardBody>
-                        <Card.Footer className="text-muted"> Days ago</Card.Footer>
-                    </StyleCard>
+                    <Blank></Blank>
                 }
             </Container>
         </div>
@@ -163,4 +150,8 @@ const ImagePefil = styled(Image)`
     width: 60px;
     height: 60px;
 }`
-
+const Blank = styled.div`
+{
+    width: 40%;
+}
+`
