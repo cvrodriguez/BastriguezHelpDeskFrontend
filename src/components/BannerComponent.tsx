@@ -40,7 +40,7 @@ export const BannerComponent: React.FC<{}> = () => {
                         <Dropdown.Item href="#">Something else here</Dropdown.Item>
                         <Dropdown.Divider />
                         <Dropdown.Item href="#">
-                            <ButtonApp   onClick={() => logout({ returnTo: 'http://localhost:3000/login' })}>
+                            <ButtonApp   onClick={() => logout({ returnTo: window.location.origin })}>
                                 Log Out
                             </ButtonApp>
                         </Dropdown.Item>
