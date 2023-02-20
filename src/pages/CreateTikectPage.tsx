@@ -18,10 +18,10 @@ import { User } from "../store/user/slice";
 export const CreateTicket: React.FC<{}> = () => {
 
     const dispatch = useAppDispatch()
-    const params = useParams();
+    // const params = useParams();
     const navigate = useNavigate()
     const usersList = useAppSelector(selectUsersList)
-    const id = parseInt(params.id!)
+    // const id = parseInt(params.id!)
 
     const [reporterName, setReporterName] = useState([] as User[])
     const [assignedToName, setAssignedToName] = useState([] as User[])
@@ -32,9 +32,9 @@ export const CreateTicket: React.FC<{}> = () => {
 
 
     useEffect(() => {
-        dispatch(fetchTicketById(id))
+        // dispatch(fetchTicketById(id))
         dispatch(fetchUsers())
-    }, [dispatch, id])
+    }, [dispatch])
 
 
     const submitCeateTicket = async (e: React.FormEvent<HTMLFormElement>) => {

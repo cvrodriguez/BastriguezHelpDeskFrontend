@@ -36,8 +36,10 @@ export const TickestListComponent: React.FC<{}> = () => {
     }
 
     useEffect(() => {
-        dispatch(fetchUserAssignedToById(ticketById?.assignedTo!))
-        dispatch(fetchUserReporterById(ticketById?.reportedBy!))
+   if (ticketById) {
+    dispatch(fetchUserAssignedToById(ticketById.assignedTo))
+    dispatch(fetchUserReporterById(ticketById.reportedBy))
+   }
     }, [ticketById, dispatch])
 
     useEffect(() => {
